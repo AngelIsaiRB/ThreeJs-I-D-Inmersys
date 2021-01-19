@@ -58,11 +58,11 @@ class Scene1 extends Scene {
 		cam.open();
 		const ambientLightHelpergui = gui.addFolder('luz ambiente');
 		ambientLightHelpergui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
-		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 2, 0.01);
+		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 20, 0.01);
 		ambientLightHelpergui.open();
 		const directionalLightHelpergui = gui.addFolder('luz direccional');
 		directionalLightHelpergui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
-		directionalLightHelpergui.add(light, 'intensity', 0, 2, 0.01);
+		directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
 		directionalLightHelpergui.open();
 		folderMaster.open();
 

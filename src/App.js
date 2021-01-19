@@ -1,4 +1,4 @@
-import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3 } from 'three';
+import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, LoadingManager } from 'three';
 import Scene1 from './scenes/Scene1';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
@@ -6,6 +6,24 @@ import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 
 export class App {
 	constructor(container) {
+
+
+		// loading-------------------------
+		const manager = new LoadingManager(()=>{
+			this.container = container;
+		
+		this.scene = new Scene1();
+		});
+		manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+		console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+		};
+		manager.onLoad = function ( ) {
+			console.log( 'Loading complete!');
+		};		
+		manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+		};
+		// 
 		this.container = container;
 		
 		this.scene = new Scene1();
@@ -15,11 +33,12 @@ export class App {
 		this.camera.position.set(-2, 6, 25);		
 		// this.camera.lookAt(0, 0, 0);
 		this.control = new OrbitControls(this.camera, this.container);
-		this.control.enableZoom=false;
+		// this.control.enableZoom=false;
 		this.control.target = new Vector3(-2, 5, 0);
 		this.control.maxPolarAngle = 85 * Math.PI / 180
 		this.camera.rotation.set(0, 0, 0);		
 		console.log(this.camera.rotation.z )
+
 
 
 		// ## Renderer's config
