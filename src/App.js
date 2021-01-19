@@ -8,22 +8,7 @@ export class App {
 	constructor(container) {
 
 
-		// loading-------------------------
-		const manager = new LoadingManager(()=>{
-			this.container = container;
 		
-		this.scene = new Scene1();
-		});
-		manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-		console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-		};
-		manager.onLoad = function ( ) {
-			console.log( 'Loading complete!');
-		};		
-		manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
-			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-		};
-		// 
 		this.container = container;
 		
 		this.scene = new Scene1();

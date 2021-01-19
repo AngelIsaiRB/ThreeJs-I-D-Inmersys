@@ -1,8 +1,10 @@
 import { App } from './App';
+import Observer, { EVENTS } from './Observer';
 var ProgressBar = require('progressbar.js');
 
 const app = new App(document.querySelector('#game-container'));
-
+let elemento = document.getElementById("nameArchives");
+let splassScreen = document.getElementById("splassScreen");
 window.addEventListener('resize', () => {
 	app.onResize();
 });
@@ -17,8 +19,16 @@ const progrssBar = () =>{
 		trailWidth: 1,
 		svgStyle: null
 	  });
-	  
-	  bar.animate(1.0);
+	  Observer.on(EVENTS.LOADING, (percent, url)=>{		
+		elemento.textContent = url
+		if(percent ===1 ){
+			elemento.textContent="";
+			splassScreen.style.display = "none";
+		} 
+		console.log(percent)
+		bar.animate(percent);
+	});
 }
+
 
 progrssBar()
