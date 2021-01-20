@@ -12,12 +12,11 @@ export class App {
 		
 		// ## Camera's config
 		this.camera = new PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
-		this.camera.position.set(-2.3, 9.3, 16);	
-		// this.camera.position.set(-2.1, 11.3, 6);	
+		this.camera.position.set(-3.7, 7, 12);	
 		// this.camera.lookAt(0, 0, 0);
 		this.control = new OrbitControls(this.camera, this.container);
 		// this.control.enableZoom=false;
-		this.control.target = new Vector3(-2, 7, 0);
+		this.control.target = new Vector3(-2, 5, 0);
 		this.control.maxPolarAngle = 100 * Math.PI / 180
 		this.camera.rotation.set(0, 0, 0);		
 		console.log(this.camera.rotation.z )
@@ -33,13 +32,13 @@ export class App {
 		var gui = new GUI();
 
 		var cam = gui.addFolder('Camera');
-		cam.add(this.camera.position, 'y', 0, 20).listen();
-		cam.add(this.camera.position, 'x', 0, 20).listen();
-		cam.add(this.camera.position, 'z', 0, 20).listen();
+		cam.add(this.camera.position, 'y', -10.0, 10.0).listen();
+		cam.add(this.camera.position, 'x', -10.0, 10.0).listen();
+		cam.add(this.camera.position, 'z', -10.0, 10.0).listen();
 		cam.add(this.camera.rotation, 'x', 0, 2).listen();
 		cam.add(this.camera.rotation, 'y', 0, 2).listen();
 		cam.add(this.camera.rotation, 'z', 0, 2).listen();
-		cam.open();
+		cam.close();
 		// ++++++++++++++++++++++++++++++++
 		// sRGBEncoding
 		this.renderer.outputEncoding = sRGBEncoding;
@@ -62,7 +61,7 @@ export class App {
 		this.renderer.render(this.scene, this.camera);
 
 		// Updates here
-		this.scene.update(this.camera.position);
+		this.scene.update(this.camera.quaternion);
 
 		this.renderer.setAnimationLoop(() => this.render());
 	}

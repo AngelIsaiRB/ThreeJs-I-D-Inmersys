@@ -19,8 +19,9 @@ export  class Text extends Mesh {
 				bevelThickness: 10,
 				bevelSize: 8,
 				bevelOffset: 0,
-				bevelSegments: 5
-			} );
+				bevelSegments: 5,
+
+			} );			
         this.geometry = textGeom;
         this.material = materialArray		
 		textGeom.computeBoundingBox();

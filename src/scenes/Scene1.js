@@ -49,11 +49,12 @@ class Scene1 extends Scene {
 		// 
 
 		// texto 3D
+		this.grupTextUpBeer = new Group();
+		this.grupTextUpBeer.position.set(-3.9,12,0)
 		this.textUPBeer = new Text('DESCUBRE DE QUE ESTAMOS ECHOS',{color: 0xFFC629},{ color: 0x000000 });
 		this.textUPBeerBegind = new Text('ABRE LA TAPA HACIENDO TAP',{color: 0xFFC629},{ color: 0x000000 });
-		this.textUPBeer.position.set(-9,13,0);		
-		this.textUPBeerBegind.position.set(-8,12,0);		
-		this.grupTextUpBeer = new Group();
+		this.textUPBeer.position.set(0,1,0);						
+		this.textUPBeerBegind.position.set(0,0,0);
 		this.grupTextUpBeer.add(this.textUPBeer, this.textUPBeerBegind)
 		this.add(this.grupTextUpBeer);
 		// 
@@ -63,12 +64,11 @@ class Scene1 extends Scene {
 		
 		// font: helvetiker, gentilis, droid sans, droid serif, optimer
 		// weight: normal, bold
-		
-		
+				
 		// 
-
-		const axesHelper = new AxesHelper( 5 );
-		this.add( axesHelper );
+		
+		const axesHelper = new AxesHelper( 10 );		
+		this.add( axesHelper );		
 		
 		const ambientLight = new HemisphereLight(0xffffbb, 0x080820, .5);
 		const light = new DirectionalLight(0xffffff, 1.0);
@@ -134,9 +134,9 @@ class Scene1 extends Scene {
 		})
 	}
 	update(cameraPosition) {		
-		this.arrows.update();
-		// console.log(cameraPosition)
-		// this.grupTextUpBeer.lookAt(cameraPosition)
+		this.arrows.update();		
+		this.grupTextUpBeer.quaternion.copy(cameraPosition)
+		
 		
 		
 		TWEEN.update();
