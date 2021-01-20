@@ -10,7 +10,7 @@ export class Botella extends Group{
 		// loading-------------------------
 		const manager = new LoadingManager();
 		manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-		console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+		// console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 		};
 		manager.onLoad = function ( ) {
 			console.log( 'Loading complete!');

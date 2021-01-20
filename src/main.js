@@ -38,7 +38,6 @@ const progrssBar = () =>{
 			btn2.style.display = "block"
 			Observer.emit(EVENTS.LODING_OK);
 		} 
-		console.log(percent)
 		bar.animate(percent);
 	});
 }

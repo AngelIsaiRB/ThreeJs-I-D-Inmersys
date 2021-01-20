@@ -1,5 +1,4 @@
-import { Scene, Color, DirectionalLight, HemisphereLight,AxesHelper, CubeTextureLoader, MeshBasicMaterial,  Mesh, TextGeometry, Font } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Scene,  DirectionalLight, HemisphereLight,AxesHelper, CubeTextureLoader, Group, MeshBasicMaterial,  CylinderGeometry } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import { Floor } from '../objects/Floor';
@@ -7,17 +6,20 @@ import { Cube } from '../objects/Cube';
 import Observer, { EVENTS } from '../Observer';
 import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 import { ColorGUIHelper } from '../models/ColorGuiHelper';
+import { Text } from '../objects/Text';
+import { Arrows } from '../objects/Arrows';
 
 class Scene1 extends Scene {
 	constructor() {
 		super();
+		this.bandera= true;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
 		this.events();
 	}
 
 	create() {
-
+		
 		// background
 		const urls = [
 			"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
@@ -47,32 +49,17 @@ class Scene1 extends Scene {
 		// 
 
 		// texto 3D
-
-		// var materialFront = new MeshBasicMaterial( { color: 0xff0000 } );
-		// var materialSide = new MeshBasicMaterial( { color: 0x000088 } );
-		// var materialArray = [ materialFront, materialSide ];
-		// loader.load( './assets/fonts/helvetiker_regular.typeface.json', function ( font ) {
-		// 	const textGeom = new THREE.TextGeometry( 'Hello three.js!', {
-		// 		font: font,
-		// 		size: 80,
-		// 		height: 5,
-		// 		curveSegments: 12,
-		// 		bevelEnabled: true,
-		// 		bevelThickness: 10,
-		// 		bevelSize: 8,
-		// 		bevelOffset: 0,
-		// 		bevelSegments: 5
-		// 	} );
-		// 	var textMaterial = new MeshFaceMaterial(materialArray);
-		// var textMesh = new Mesh(textGeom, textMaterial );
-		
-		// textGeom.computeBoundingBox();
-		// var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
-		
-		// textMesh.position.set( -0.5 * textWidth, 50, 100 );
-		// textMesh.rotation.x = -Math.PI / 4;
-		// this.add(textMesh);
-		// });
+		this.textUPBeer = new Text('DESCUBRE DE QUE ESTAMOS ECHOS',{color: 0xFFC629},{ color: 0x000000 });
+		this.textUPBeerBegind = new Text('ABRE LA TAPA HACIENDO TAP',{color: 0xFFC629},{ color: 0x000000 });
+		this.textUPBeer.position.set(-9,13,0);		
+		this.textUPBeerBegind.position.set(-8,12,0);		
+		this.grupTextUpBeer = new Group();
+		this.grupTextUpBeer.add(this.textUPBeer, this.textUPBeerBegind)
+		this.add(this.grupTextUpBeer);
+		// 
+		// figura debajo
+		this.arrows = new Arrows()
+		this.add(this.arrows);
 		
 		// font: helvetiker, gentilis, droid sans, droid serif, optimer
 		// weight: normal, bold
@@ -98,18 +85,34 @@ class Scene1 extends Scene {
 		cam.add(botella.rotation, 'x', -2, 2).listen();
 		cam.add(botella.rotation, 'y', -2, 2).listen();
 		cam.add(botella.rotation, 'z', -2, 2).listen();
-		// cam.add(this.cube.material, 'opacity', 0.0, 1).listen();
+		const text = gui.addFolder('texto');
+		text.add(this.grupTextUpBeer.position, 'y', -30.0, 30.0).listen();
+		text.add(this.grupTextUpBeer.position, 'x', -30.0, 30.0).listen();
+		text.add(this.grupTextUpBeer.position, 'z', -30.0, 30.0).listen();
+		text.add(this.grupTextUpBeer.rotation, 'x', -30.0, 30.0).listen();
+		text.add(this.grupTextUpBeer.rotation, 'y', -30.0, 30.0).listen();
+		text.add(this.grupTextUpBeer.rotation, 'z', -30.0, 30.0).listen();
+		text.close();
+		// const f = gui.addFolder('f');
+		// f.add(this.shape.position, 'y', -30.0, 30.0).listen();
+		// f.add(this.shape.position, 'x', -30.0, 30.0).listen();
+		// f.add(this.shape.position, 'z', -30.0, 30.0).listen();
+		// f.add(this.shape.rotation, 'x', -30.0, 30.0).listen();
+		// f.add(this.shape.rotation, 'y', -30.0, 30.0).listen();
+		// f.add(this.shape.rotation, 'z', -30.0, 30.0).listen();
+		// f.close();
+		// text.add(this.cube.material, 'opacity', 0.0, 1).listen();
 		
-		cam.open();
+		cam.close();
 		const ambientLightHelpergui = gui.addFolder('luz ambiente');
 		ambientLightHelpergui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
 		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 20, 0.01);
-		ambientLightHelpergui.open();
+		ambientLightHelpergui.close();
 		const directionalLightHelpergui = gui.addFolder('luz direccional');
 		directionalLightHelpergui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
 		directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
-		directionalLightHelpergui.open();
-		folderMaster.open();
+		directionalLightHelpergui.close();
+		folderMaster.close();
 		
 
 		// gui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
@@ -130,7 +133,12 @@ class Scene1 extends Scene {
 				fadeinEcene.start();
 		})
 	}
-	update() {
+	update(cameraPosition) {		
+		this.arrows.update();
+		// console.log(cameraPosition)
+		// this.grupTextUpBeer.lookAt(cameraPosition)
+		
+		
 		TWEEN.update();
 	}
 }
