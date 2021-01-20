@@ -12,7 +12,7 @@ export class App {
 		
 		// ## Camera's config
 		this.camera = new PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
-		this.camera.position.set(-2.3, 7, 12);		
+		this.camera.position.set(-2.3, 7, 12);	
 		// this.camera.lookAt(0, 0, 0);
 		this.control = new OrbitControls(this.camera, this.container);
 		// this.control.enableZoom=false;
