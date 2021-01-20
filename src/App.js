@@ -6,21 +6,18 @@ import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 
 export class App {
 	constructor(container) {
-
-
-		
 		this.container = container;
 		
 		this.scene = new Scene1();
 		
 		// ## Camera's config
-		this.camera = new PerspectiveCamera(35, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
-		this.camera.position.set(-2, 6, 25);		
+		this.camera = new PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
+		this.camera.position.set(-2.3, 7, 12);		
 		// this.camera.lookAt(0, 0, 0);
 		this.control = new OrbitControls(this.camera, this.container);
 		// this.control.enableZoom=false;
 		this.control.target = new Vector3(-2, 5, 0);
-		this.control.maxPolarAngle = 85 * Math.PI / 180
+		this.control.maxPolarAngle = 100 * Math.PI / 180
 		this.camera.rotation.set(0, 0, 0);		
 		console.log(this.camera.rotation.z )
 

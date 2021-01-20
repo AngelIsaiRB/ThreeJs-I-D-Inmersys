@@ -24,6 +24,7 @@ const progrssBar = () =>{
 		if(percent ===1 ){
 			elemento.textContent="";
 			splassScreen.style.display = "none";
+			Observer.emit(EVENTS.LODING_OK);
 		} 
 		console.log(percent)
 		bar.animate(percent);

@@ -78,7 +78,6 @@ body {
 	height: 100vh;
 }
 
-/* Fix mozilla error */
 canvas {
 	display: block;
 }
