@@ -53,7 +53,7 @@ export class Botella extends Group{
 				// const x = child;
 				const y = child.getObjectByName('RootNode');
 				y.position.set(0,0,0)
-				const z = y.getObjectByName('Bottle_Beer_Bottle_0');				
+				const z = y.getObjectByName('Bottle_Beer_Bottle_0');
 				this.add(y) 
 			})
 			this.scale.x=45;
