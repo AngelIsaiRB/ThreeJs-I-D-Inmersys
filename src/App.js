@@ -1,4 +1,4 @@
-import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, PMREMGenerator, ReinhardToneMapping, LinearToneMapping, UnsignedByteType, LoadingManager } from 'three';
+import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, PMREMGenerator, ReinhardToneMapping, LinearToneMapping, UnsignedByteType, LoadingManager, AudioListener } from 'three';
 import Scene1 from './scenes/Scene1';
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
@@ -12,10 +12,13 @@ export class App {
 		// ## Camera's config
 		this.camera = new PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
 		this.camera.position.set(-3.7, 7, 12);	
-		// this.camera.lookAt(0, 0, 0);
 		this.control = new OrbitControls(this.camera, this.container);
 		// this.control.enableZoom=false;
-		this.control.target = new Vector3(-2, 5, 0);
+		// add properties audio
+		// const listener = new AudioListener();
+		// this.camera.add(listener);
+		// 
+		this.control.target = new Vector3(-3, 7, 0);
 		this.control.maxPolarAngle = 100 * Math.PI / 180
 		this.camera.rotation.set(0, 0, 0);		
 		console.log(this.camera.rotation.z )
@@ -48,14 +51,14 @@ export class App {
 
 		this.scene = new Scene1(manager);
 		// 
-		var pmremGenerator = new PMREMGenerator( this.renderer );
+		const pmremGenerator = new PMREMGenerator( this.renderer );
 		pmremGenerator.compileEquirectangularShader();
 
 				new RGBELoader(manager)
 					.setDataType( UnsignedByteType )
 					.load( './assets/Arte 3D/HDRI/Env360.hdr',  ( texture ) => {
 
-						var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 
 						// this.scene.background = envMap;
 						this.scene.environment = envMap;
@@ -76,6 +79,15 @@ export class App {
 		
 		this.onResize();
 		this.render();
+		this.events();
+	}
+
+	events(){
+		
+	Observer.on(EVENTS.MOVE_MOUSE, (clientX, clientY)=>{
+	// console.log("moviendo!")
+	this.scene.onDocumentMouseDown(clientX, clientY, this.renderer, this.camera);
+	});
 	}
 
 	onResize() {

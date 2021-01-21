@@ -1,5 +1,6 @@
 import { CylinderGeometry, Group, Mesh, MeshBasicMaterial } from "three";
-
+import Observer, { EVENTS } from "../Observer";
+import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 export class Arrows extends Group{
 
     constructor(){
@@ -25,6 +26,7 @@ export class Arrows extends Group{
 		 this.shape3.material.opacity=1
 		 
 		this.add( this.shape, this.shape2, this.shape3 );
+		this.events();	
 
     }
     update(){
@@ -40,6 +42,21 @@ export class Arrows extends Group{
 			this.shape3.position.y += 0.007;
 			if(this.shape.position.y >= 11.4) this.bandera=true			
 		}
-    }
+		
+		TWEEN.update();
+	}
+	events(){
+		Observer.on(EVENTS.RUN_ANIMATION,()=>{
+			const fadeinEcene = new TWEEN.Tween(this.position)
+				.to({				
+					y:12,
+				},3400)
+				.easing(TWEEN.Easing.Bounce.In)
+				.onComplete(()=>{
+					 this.visible=false;
+				});		
+				fadeinEcene.start();
+		})
+	}
 
 }

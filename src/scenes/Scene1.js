@@ -1,4 +1,4 @@
-import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight } from 'three';
+import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2 } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { Floor } from '../objects/Floor';
@@ -9,11 +9,13 @@ import { ColorGUIHelper } from '../models/ColorGuiHelper';
 import { Text } from '../objects/Text';
 import { Arrows } from '../objects/Arrows';
 
+var raycaster = new Raycaster();
+var mouse = new Vector2();
 class Scene1 extends Scene {
 	constructor(managerLoader) {
 		super();
 		this.managerLoader = managerLoader;
-		this.bandera= true;
+		this.bandera= false;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
 		this.events();
@@ -52,6 +54,19 @@ class Scene1 extends Scene {
 			this.cube.position.z=6
 			this.add(this.cube);
 		// 
+			
+			this.cubeD = new Cube(4);
+		   this.cubeD.position.set(-3,0,2);		 
+		   this.cubeD.scale.y=6  
+		   this.cubeD.scale.z=10 
+		   this.cubeD.position.set(-3,0,0)
+		   this.cubeD.material.visible=false
+		   this.cubeD.callback = () => {
+			   Observer.emit(EVENTS.RUN_ANIMATION);
+		   }
+		   this.add(this.cubeD);
+
+		// cube for detecter click
 
 		// texto 3D
 		this.grupTextUpBeer = new Group();
@@ -125,8 +140,6 @@ class Scene1 extends Scene {
 	}
 	events(){
 		Observer.on(EVENTS.LODING_OK,()=>{
-			
-			
 			const fadeinEcene = new TWEEN.Tween(this.cube.material)
 				.to({				
 					opacity:0,
@@ -136,7 +149,29 @@ class Scene1 extends Scene {
 					this.remove(this.cube)
 				});		
 				fadeinEcene.start();
+		});
+
+		Observer.on(EVENTS.RUN_ANIMATION,()=>{
+			this.bandera=true;			
 		})
+		
+	}
+	 onDocumentMouseDown(clientX, clientY, renderer, camera  ) {
+		mouse.x = ( clientX / renderer.domElement.clientWidth ) * 2 - 1;
+		mouse.y = - ( clientY / renderer.domElement.clientHeight ) * 2 + 1;
+	
+		raycaster.setFromCamera( mouse,camera );
+	
+		var intersects = raycaster.intersectObjects( this.children ); 
+		// console.log(intersects)
+		if ( intersects.length > 0 ) {
+			
+			if(intersects[0].object.callback){
+				intersects[0].object.callback();
+			}
+	
+		}
+	
 	}
 	update(camera) {		
 		this.arrows.update();		
@@ -146,11 +181,11 @@ class Scene1 extends Scene {
 			camera.position.y+10,
 			camera.position.z+10
 		)
-		if(!false){ //evento click tapa
+		if(this.bandera){ //evento click tapa
 			this.botella.update()
 		}
-		
 		TWEEN.update();
+		
 	}
 	
 }

@@ -8,6 +8,7 @@ const app = new App(document.querySelector('#game-container'));
 let elemento = document.getElementById("nameArchives");
 let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
+let btn3 = document.getElementById("btn3");
 let bar;
 let splassScreen = document.getElementById("splassScreen");
 
@@ -29,6 +30,11 @@ btn2.onclick = () =>{
 	
 	
 }
+
+document.onclick=(e)=>{
+	e.preventDefault();
+	Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
+  }
 
 window.addEventListener('resize', () => {
 	app.onResize();
@@ -57,6 +63,7 @@ const progrssBar = () =>{
 	splassScreen.style.display = "none";
 	btn1.style.display = "block"
 	btn2.style.display = "block"
+	btn3.style.display = "block"
   })
 
 

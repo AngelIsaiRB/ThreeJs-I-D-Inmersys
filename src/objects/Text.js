@@ -1,5 +1,6 @@
 import { FontLoader, Mesh, MeshBasicMaterial, TextGeometry } from "three";
-
+import Observer, { EVENTS } from "../Observer";
+import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 
 export  class Text extends Mesh {
 
@@ -29,10 +30,21 @@ export  class Text extends Mesh {
 		// textMesh.rotation.x = -Math.PI / 4;		
 		// textMesh.scale.set(0.01,0.01,0.01)
 	    // this.position.set(0,0,0)
-		
-		});
-
-
-
-    }
+	});
+	TWEEN.update();
+	this.events();	
+	}
+	events(){
+		Observer.on(EVENTS.RUN_ANIMATION,()=>{
+			const fadeinEcene = new TWEEN.Tween(this.position)
+				.to({				
+					y:50,
+				},1000)
+				.easing(TWEEN.Easing.Sinusoidal.In)
+				.onComplete(()=>{
+					// this.remove(this.cube)
+				});		
+				fadeinEcene.start();
+		})
+	}
 }
