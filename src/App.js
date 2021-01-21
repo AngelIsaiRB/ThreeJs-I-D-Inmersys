@@ -1,5 +1,6 @@
-import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, LoadingManager } from 'three';
+import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, PMREMGenerator, ReinhardToneMapping, LinearToneMapping, UnsignedByteType } from 'three';
 import Scene1 from './scenes/Scene1';
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 
@@ -23,11 +24,40 @@ export class App {
 
 
 
-		// ## Renderer's config
+		//  Renderer's config
 		this.renderer = new WebGLRenderer({
 			antialias: true,
 		})
+		this.renderer.outputEncoding = sRGBEncoding;
+
+		// ## Light's config
+		this.renderer.physicallyCorrectLights = true;
+		// 
+		this.renderer.toneMapping = LinearToneMapping;
+		this.renderer.toneMappingExposure = 0.7;
+		this.renderer.shadowMap.enabled = true;
+
+		this.container.appendChild(this.renderer.domElement);
 		this.renderer.setPixelRatio(window.devicePixelRatio);
+
+		var pmremGenerator = new PMREMGenerator( this.renderer );
+				pmremGenerator.compileEquirectangularShader();
+
+				new RGBELoader()
+					.setDataType( UnsignedByteType )
+					.load( './assets/Arte 3D/HDRI/Env360.hdr',  ( texture ) => {
+
+						var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+
+						// this.scene.background = envMap;
+						this.scene.environment = envMap;
+
+					} )
+
+
+
+
+
 		// helpers
 		var gui = new GUI();
 
@@ -40,13 +70,7 @@ export class App {
 		cam.add(this.camera.rotation, 'z', 0, 2).listen();
 		cam.close();
 		// ++++++++++++++++++++++++++++++++
-		// sRGBEncoding
-		this.renderer.outputEncoding = sRGBEncoding;
-
-		// ## Light's config
-		this.renderer.physicallyCorrectLights = true;
-
-		this.container.appendChild(this.renderer.domElement);
+		
 		this.onResize();
 		this.render();
 	}
@@ -59,10 +83,12 @@ export class App {
 
 	render() {
 		this.renderer.render(this.scene, this.camera);
-
 		// Updates here
-		this.scene.update(this.camera.quaternion);
+		this.scene.update(this.camera);
 
 		this.renderer.setAnimationLoop(() => this.render());
+
+		
+
 	}
 }

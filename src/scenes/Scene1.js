@@ -1,6 +1,7 @@
-import { Scene,  DirectionalLight, HemisphereLight,AxesHelper, CubeTextureLoader, Group, MeshBasicMaterial,  CylinderGeometry } from 'three';
+import { Scene,  DirectionalLight, HemisphereLight,AxesHelper, CubeTextureLoader, Group,UnsignedByteType, PMREMGenerator, SpotLight } from 'three';
 import { Botella } from '../objects/botella';
-import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
+import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { Floor } from '../objects/Floor';
 import { Cube } from '../objects/Cube';
 import Observer, { EVENTS } from '../Observer';
@@ -12,6 +13,7 @@ import { Arrows } from '../objects/Arrows';
 class Scene1 extends Scene {
 	constructor() {
 		super();
+		
 		this.bandera= true;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
@@ -30,7 +32,7 @@ class Scene1 extends Scene {
 		
 		this.background = loader.load(urls)
 		
-
+		
 
 		// -------------------escenario
 		const floor = new Floor();
@@ -38,7 +40,11 @@ class Scene1 extends Scene {
 		// ---------------------------------	----------------------------------------
 		//   botella
 
-		  const botella = new Botella()
+		  const botella = new Botella();
+		//   botella.children.map(n =>{
+		// 	console.log(n)
+		//   });		  
+		  
 		  this.add(botella)
 
 		// ---------------------------------
@@ -70,9 +76,9 @@ class Scene1 extends Scene {
 		const axesHelper = new AxesHelper( 10 );		
 		this.add( axesHelper );		
 		
-		const ambientLight = new HemisphereLight(0xffffbb, 0x080820, .5);
-		const light = new DirectionalLight(0xffffff, 1.0);
-		this.add(light, ambientLight);
+		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820, 0.1);
+		 this.spotLight = new SpotLight(0xffa95c, 4);
+		this.add( ambientLight, this.spotLight);
 
 
 		// 	helpers
@@ -106,12 +112,12 @@ class Scene1 extends Scene {
 		cam.close();
 		const ambientLightHelpergui = gui.addFolder('luz ambiente');
 		ambientLightHelpergui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
-		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 20, 0.01);
+		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 10.0, 0.01);
 		ambientLightHelpergui.close();
-		const directionalLightHelpergui = gui.addFolder('luz direccional');
-		directionalLightHelpergui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
-		directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
-		directionalLightHelpergui.close();
+		// const directionalLightHelpergui = gui.addFolder('luz direccional');
+		// directionalLightHelpergui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+		// directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
+		// directionalLightHelpergui.close();
 		folderMaster.close();
 		
 
@@ -133,14 +139,19 @@ class Scene1 extends Scene {
 				fadeinEcene.start();
 		})
 	}
-	update(cameraPosition) {		
+	update(camera) {		
 		this.arrows.update();		
-		this.grupTextUpBeer.quaternion.copy(cameraPosition)
-		
+		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
+		this.spotLight.position.set(
+			camera.position.x+10,
+			camera.position.y+10,
+			camera.position.z+10
+		)
 		
 		
 		TWEEN.update();
 	}
+	
 }
 
 export default Scene1;
