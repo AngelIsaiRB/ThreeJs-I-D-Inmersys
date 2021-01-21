@@ -4,6 +4,7 @@ export const EVENTS = {
     START: 'START',
     LOADING: 'LOADING',
     LODING_OK: 'LODING_OK',
+    LIQUID_CHANGE: 'LIQUID_CHANGE',
 }
 
 const Observer = new EventEmitter();

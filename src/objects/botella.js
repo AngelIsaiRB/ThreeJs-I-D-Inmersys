@@ -2,7 +2,7 @@
 import { update } from '@tweenjs/tween.js';
 import { AnimationMixer, Clock, Group, Mesh, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
+import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 import Observer, {EVENTS} from '../Observer';
 
 export class Botella extends Mesh{
@@ -66,9 +66,28 @@ export class Botella extends Mesh{
 			// this.add(this.groups);
 		  },);
 		//   console.log(this.children[0].getObjectByName("0"))
-		
+		this.events();
+		}
+		events(){
+			Observer.on(EVENTS.LIQUID_CHANGE, ()=>{
+				console.log(this.liquid.material.color)
+				this.liquid.material.color.set(0xff0000)
+				// const changeColor = new TWEEN.Tween(this.liquid.material.color)
+				// .to(()=>{
+				// 	console.log("ejecuting")
+				// 	set(255,0,0)
+				// }
+				// ,1200)
+				// .easing(TWEEN.Easing.Sinusoidal.In)
+				// .onComplete(()=>{
+					
+				// });		
+				// changeColor.start();
+				  
+			  });
 		}
 		update(){
+			TWEEN.update();
 			let delta = this.clock.getDelta();
 			
 			  if ( this.mixer ){

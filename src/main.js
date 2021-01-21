@@ -11,7 +11,7 @@ let bar;
 let splassScreen = document.getElementById("splassScreen");
 
 btn1.onclick = () =>{
-	console.log("click")
+	Observer.emit(EVENTS.LIQUID_CHANGE);
 }
 btn2.onclick = () =>{
 	console.log("click 2")
@@ -34,7 +34,7 @@ const progrssBar = () =>{
 
 }
 	Observer.on(EVENTS.LOADING, (percent, url)=>{
-	  console.log(percent)
+	//   console.log(percent)
 	  elemento.textContent = url
 	  bar.animate(progress);
   });
