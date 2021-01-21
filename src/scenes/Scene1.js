@@ -1,7 +1,6 @@
-import { Scene,  DirectionalLight, HemisphereLight,AxesHelper, CubeTextureLoader, Group,UnsignedByteType, PMREMGenerator, SpotLight } from 'three';
+import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { Floor } from '../objects/Floor';
 import { Cube } from '../objects/Cube';
 import Observer, { EVENTS } from '../Observer';
@@ -11,9 +10,9 @@ import { Text } from '../objects/Text';
 import { Arrows } from '../objects/Arrows';
 
 class Scene1 extends Scene {
-	constructor() {
+	constructor(managerLoader) {
 		super();
-		
+		this.managerLoader = managerLoader;
 		this.bandera= true;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
@@ -28,24 +27,24 @@ class Scene1 extends Scene {
 			"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
 			"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
 		]
-		const loader = new  CubeTextureLoader();
+		const loader = new  CubeTextureLoader(this.managerLoader);
 		
 		this.background = loader.load(urls)
 		
 		
 
 		// -------------------escenario
-		const floor = new Floor();
+		const floor = new Floor(this.managerLoader);
 		this.add(floor)
 		// ---------------------------------	----------------------------------------
 		//   botella
 
-		  const botella = new Botella();
+		   this.botella = new Botella(this.managerLoader);
 		//   botella.children.map(n =>{
 		// 	console.log(n)
 		//   });		  
 		  
-		  this.add(botella)
+		  this.add(this.botella)
 
 		// ---------------------------------
 		// -------------cubo para fade in
@@ -85,12 +84,12 @@ class Scene1 extends Scene {
 		const gui = new GUI();
 		const folderMaster = gui.addFolder('escena');
 		const cam = gui.addFolder('botella');
-		cam.add(botella.position, 'y',-100, 100).listen();
-		cam.add(botella.position, 'x', -100, 100).listen();
-		cam.add(botella.position, 'z', -100, 100).listen();
-		cam.add(botella.rotation, 'x', -2, 2).listen();
-		cam.add(botella.rotation, 'y', -2, 2).listen();
-		cam.add(botella.rotation, 'z', -2, 2).listen();
+		cam.add(this.botella.position, 'y',-100, 100).listen();
+		cam.add(this.botella.position, 'x', -100, 100).listen();
+		cam.add(this.botella.position, 'z', -100, 100).listen();
+		cam.add(this.botella.rotation, 'x', -2, 2).listen();
+		cam.add(this.botella.rotation, 'y', -2, 2).listen();
+		cam.add(this.botella.rotation, 'z', -2, 2).listen();
 		const text = gui.addFolder('texto');
 		text.add(this.grupTextUpBeer.position, 'y', -30.0, 30.0).listen();
 		text.add(this.grupTextUpBeer.position, 'x', -30.0, 30.0).listen();
@@ -119,7 +118,6 @@ class Scene1 extends Scene {
 		// directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
 		// directionalLightHelpergui.close();
 		folderMaster.close();
-		
 
 		// gui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
 		// gui.add(light, 'intensity', 0, 2, 0.01);
@@ -127,7 +125,8 @@ class Scene1 extends Scene {
 	}
 	events(){
 		Observer.on(EVENTS.LODING_OK,()=>{
-			console.log("ha cragado completamente");
+			
+			
 			const fadeinEcene = new TWEEN.Tween(this.cube.material)
 				.to({				
 					opacity:0,
@@ -147,7 +146,9 @@ class Scene1 extends Scene {
 			camera.position.y+10,
 			camera.position.z+10
 		)
-		
+		if(!false){ //evento click tapa
+			this.botella.update()
+		}
 		
 		TWEEN.update();
 	}

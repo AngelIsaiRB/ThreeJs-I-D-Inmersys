@@ -1,5 +1,4 @@
 import { CylinderGeometry, Group, Mesh, MeshBasicMaterial } from "three";
-import {SceneUtils} from 'three/examples/jsm/utils/SceneUtils.js';
 
 export class Arrows extends Group{
 

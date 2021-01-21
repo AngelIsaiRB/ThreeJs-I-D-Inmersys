@@ -1,17 +1,16 @@
 
 import { Group,  TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import Observer, {EVENTS} from '../Observer';
 
 export class Floor extends Group{
 
-    constructor(){
+    constructor(managerLoader){
 
         super();
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(managerLoader);
 		textureLoader.setPath("./assets/Arte 3D/textures/");
 		
-		let loader = new GLTFLoader();
+		let loader = new GLTFLoader(managerLoader);
 
 		loader.load('./assets/Arte 3D/scene.gltf', (gltf)=>{			
 			const objetoX = gltf.scene.children[0];
