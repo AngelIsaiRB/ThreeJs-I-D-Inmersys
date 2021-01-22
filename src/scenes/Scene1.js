@@ -112,9 +112,9 @@ class Scene1 extends Scene {
 		// weight: normal, bold
 				
 		// 
-		
-		const axesHelper = new AxesHelper( 10 );		
-		this.add( axesHelper );		
+		// axes helper
+		// const axesHelper = new AxesHelper( 10 );		
+		// this.add( axesHelper );		
 		
 		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820, 0.1);
 		 this.spotLight = new SpotLight(0xffa95c, 4);

@@ -4,10 +4,13 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import Observer, { EVENTS } from './Observer';
+import { isDevice } from './utils/utils';
 
 
 export class App {
 	constructor(container) {
+		this.isDevice = isDevice();
+
 		this.container = container;
 		// ## Camera's config
 		this.camera = new PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 10000);
@@ -61,6 +64,7 @@ export class App {
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 
 						// this.scene.background = envMap;
+						if(!this.isDevice)
 						this.scene.environment = envMap;
 
 					} )
