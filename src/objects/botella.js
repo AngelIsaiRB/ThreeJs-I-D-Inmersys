@@ -42,7 +42,7 @@ export class Botella extends Mesh{
 				this.mixer.clipAction( clip ).play();
 				
 			} );
-			console.log(this.children[0].getObjectByName('BottleOpener.001_W_BottleOpener_0'))
+			// console.log(this.children[0].getObjectByName('BottleOpener.001_W_BottleOpener_0'))
 			// this.add(this.groups);
 		  },);
 		//   console.log(this.children[0].getObjectByName("0"))

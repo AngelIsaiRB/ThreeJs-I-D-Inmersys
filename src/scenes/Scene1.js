@@ -10,6 +10,7 @@ import { Text } from '../objects/Text';
 import { Arrows } from '../objects/Arrows';
 import { Sound } from '../sound/Sound';
 import { Video } from '../objects/Vdeo';
+import { isDevice } from '../utils/utils';
 
 var raycaster = new Raycaster();
 var mouse = new Vector2();
@@ -116,8 +117,12 @@ class Scene1 extends Scene {
 		// const axesHelper = new AxesHelper( 10 );		
 		// this.add( axesHelper );		
 		
-		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820, 0.1);
-		 this.spotLight = new SpotLight(0xffa95c, 4);
+		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820,0.1);
+		const device =isDevice();
+		if ( device ){
+			ambientLight.intensity = 1.5
+		}
+		this.spotLight = new SpotLight(0xffa95c, 4);
 		this.add( ambientLight, this.spotLight);
 
 

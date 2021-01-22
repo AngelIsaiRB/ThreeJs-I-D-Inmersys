@@ -21,7 +21,6 @@
   };
 
   export function isDevice(){
-      console.log(mobile.any())
       if(mobile.any() ){
           return true;
       }
