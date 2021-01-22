@@ -9,6 +9,7 @@ import { ColorGUIHelper } from '../models/ColorGuiHelper';
 import { Text } from '../objects/Text';
 import { Arrows } from '../objects/Arrows';
 import { Sound } from '../sound/Sound';
+import { Video } from '../objects/Vdeo';
 
 var raycaster = new Raycaster();
 var mouse = new Vector2();
@@ -69,7 +70,11 @@ class Scene1 extends Scene {
 		   this.add(this.cubeD);
 
 		// cube for detecter click
-
+		// video
+		this.video = new Video();	
+		this.add(this.video)
+		
+		// 
 		// sound
 			this.sound = new Audio(this.listener); 
 			const audioLoader = new AudioLoader();
@@ -191,7 +196,7 @@ class Scene1 extends Scene {
 	
 	}
 	update(camera) {	
-			
+		this.video.update();
 		this.arrows.update();		
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
 		this.spotLight.position.set(

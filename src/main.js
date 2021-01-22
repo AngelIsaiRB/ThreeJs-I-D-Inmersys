@@ -25,10 +25,11 @@ btn2.onclick = () =>{
 	}
 	else{
 		videoContainer.style.display="flex";
-	}
-	
-	
-	
+	}	
+}
+
+btn3.onclick =()=>{
+	Observer.emit(EVENTS.PLAY_VIDEO2);
 }
 
 document.onclick=(e)=>{
