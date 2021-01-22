@@ -1,6 +1,7 @@
 import { Mesh, MeshStandardMaterial, Color, BoxBufferGeometry } from 'three';
 
 export class Cube extends Mesh {
+	
 	constructor(size) {
 		super();
 

@@ -1,4 +1,4 @@
-import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2 } from 'three';
+import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2, AudioLoader, Audio } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { Floor } from '../objects/Floor';
@@ -8,14 +8,16 @@ import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 import { ColorGUIHelper } from '../models/ColorGuiHelper';
 import { Text } from '../objects/Text';
 import { Arrows } from '../objects/Arrows';
+import { Sound } from '../sound/Sound';
 
 var raycaster = new Raycaster();
 var mouse = new Vector2();
 class Scene1 extends Scene {
-	constructor(managerLoader) {
+	constructor(managerLoader,listener) {
 		super();
 		this.managerLoader = managerLoader;
 		this.bandera= false;
+		this.listener =listener;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
 		this.events();
@@ -67,6 +69,21 @@ class Scene1 extends Scene {
 		   this.add(this.cubeD);
 
 		// cube for detecter click
+
+		// sound
+			this.sound = new Audio(this.listener); 
+			const audioLoader = new AudioLoader();
+			audioLoader.load("./assets/sfx_open_bottle.wav", (buffer)=>{
+				this.sound.setBuffer(buffer);
+				this.sound.setLoop(false);
+				this.sound.setVolume(1);
+				Observer.on(EVENTS.PLAY_AUDIO,()=>{
+					this.sound.play();								
+				})
+			});  
+			
+			
+		// 
 
 		// texto 3D
 		this.grupTextUpBeer = new Group();
@@ -173,7 +190,8 @@ class Scene1 extends Scene {
 		}
 	
 	}
-	update(camera) {		
+	update(camera) {	
+			
 		this.arrows.update();		
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
 		this.spotLight.position.set(

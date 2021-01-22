@@ -8,6 +8,7 @@ export const EVENTS = {
     MOVE_MOUSE: 'MOVE_MOUSE',
     RUN_ANIMATION: 'RUN_ANIMATION',
     RUN_END: 'RUN_ENDED',
+    PLAY_AUDIO: 'PLAY_AUDIO',
 }
 
 const Observer = new EventEmitter();

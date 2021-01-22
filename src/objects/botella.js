@@ -42,7 +42,7 @@ export class Botella extends Mesh{
 				this.mixer.clipAction( clip ).play();
 				
 			} );
-			console.log(this.children[0].children[0].children[0].children[0].getObjectByName('BottleOpener.001_W_BottleOpener_0'))
+			console.log(this.children[0].getObjectByName('BottleOpener.001_W_BottleOpener_0'))
 			// this.add(this.groups);
 		  },);
 		//   console.log(this.children[0].getObjectByName("0"))
@@ -69,7 +69,10 @@ export class Botella extends Mesh{
 		update(){
 			TWEEN.update();
 			let delta = this.clock.getDelta();
-			
+
+			if(this.mixer.time >= 1.9 && this.mixer.time <= 2){
+				Observer.emit(EVENTS.PLAY_AUDIO);
+			}
 			  if ( this.mixer ){
 				if(this.mixer.time <= 6)
 				this.mixer.update( delta );

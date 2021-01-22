@@ -15,8 +15,8 @@ export class App {
 		this.control = new OrbitControls(this.camera, this.container);
 		// this.control.enableZoom=false;
 		// add properties audio
-		// const listener = new AudioListener();
-		// this.camera.add(listener);
+		const listener = new AudioListener();
+		this.camera.add(listener);
 		// 
 		this.control.target = new Vector3(-3, 7, 0);
 		this.control.maxPolarAngle = 100 * Math.PI / 180
@@ -49,7 +49,7 @@ export class App {
 			Observer.emit(EVENTS.LOADING,percentComplete,url);
 		};
 
-		this.scene = new Scene1(manager);
+		this.scene = new Scene1(manager,listener);
 		// 
 		const pmremGenerator = new PMREMGenerator( this.renderer );
 		pmremGenerator.compileEquirectangularShader();
