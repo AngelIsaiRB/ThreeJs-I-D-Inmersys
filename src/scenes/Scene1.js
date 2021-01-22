@@ -72,7 +72,11 @@ class Scene1 extends Scene {
 		// cube for detecter click
 		// video
 		this.video = new Video();	
-		this.add(this.video)
+		this.videoGroup = new Group();
+		this.videoGroup.position.set(-3.5,5,0)
+		 this.video.position.set(0,0,2)
+		this.videoGroup.add(this.video)
+		this.add(this.videoGroup)
 		
 		// 
 		// sound
@@ -198,7 +202,10 @@ class Scene1 extends Scene {
 	update(camera) {	
 		this.video.update();
 		this.arrows.update();		
+
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
+		this.videoGroup.lookAt(camera.position.x,5,camera.position.z)
+
 		this.spotLight.position.set(
 			camera.position.x+10,
 			camera.position.y+10,

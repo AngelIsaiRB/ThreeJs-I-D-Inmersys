@@ -10,6 +10,11 @@
 	--colorShadeC1: #ffcb3d;
 	--colorShadeD1: #ffd86c;
 	--colorShadeE1: #ffe9ac;
+	--colorShadeA2: #403A3E;
+	--colorShadeB2: #503c49;
+	--colorShadeC2: #74576a;
+	--colorShadeD2: #a87196;
+	--colorShadeE2: #d189b9;
   }
 
 * {
@@ -231,9 +236,9 @@ canvas {
   button.big-button-third  {
 	display: none;
 	 padding: 0.7em 1.4em;
-	 border: 2px solid var(--colorShadeA1);
+	 border: 2px solid var(--colorShadeA2);
 	border-radius: 1em;
-	background: var(--colorShadeE1);
+	background: var(--colorShadeE2);
   transform-style: preserve-3d;
 	 transition: all 175ms cubic-bezier(0, 0, 1, 1);
   }
@@ -246,16 +251,16 @@ canvas {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: var(--colorShadeC1);
+	background: var(--colorShadeC2);
 	border-radius: inherit;
-	  box-shadow: 0 0 0 2px var(--colorShadeB1), 0 0.75em 0 0 var(--colorShadeA1);
+	  box-shadow: 0 0 0 2px var(--colorShadeB2), 0 0.75em 0 0 var(--colorShadeA2);
    transform: translate3d(0, 0.75em, -1em);
 	   transition: all 175ms cubic-bezier(0, 0, 1, 1);
   }
   
   
   button.big-button-third:hover {
-	background: var(--colorShadeD1);
+	background: var(--colorShadeD2);
 	transform: translate(0, 0.375em);
   }
   
@@ -270,6 +275,6 @@ canvas {
   button.big-button-third:active::before {
 	transform: translate3d(0, 0, -1em);
 	
-		box-shadow: 0 0 0 2px var(--colorShadeB1), 0 0.25em 0 0 var(--colorShadeB1);
+		box-shadow: 0 0 0 2px var(--colorShadeB2), 0 0.25em 0 0 var(--colorShadeB2);
   
   }

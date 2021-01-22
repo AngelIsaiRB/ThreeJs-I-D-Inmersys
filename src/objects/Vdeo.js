@@ -23,10 +23,11 @@ export class Video extends Mesh{
 	videoTexture.minFilter = LinearFilter;
     videoTexture.magFilter = LinearFilter;
     var movieMaterial = new MeshBasicMaterial( { map: videoTexture, overdraw: true, side:DoubleSide } );
-    var movieGeometry = new PlaneGeometry( 14, 5, 4, 4 );
+    var movieGeometry = new PlaneGeometry( 11, 5, 4, 4 );
     this.geometry = movieGeometry;
     this.material = movieMaterial;
     this.material.visible=false;
+    // video.play();      
     Observer.on(EVENTS.PLAY_VIDEO2, ()=>{
         if(!this.material.visible ){
             this.material.visible=true;
