@@ -32,7 +32,15 @@ btn3.onclick =()=>{
 	Observer.emit(EVENTS.PLAY_VIDEO2);
 }
 
+document.addEventListener('touchend', (e) =>{
+	// console.log(e)
+	// Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
+	Observer.emit(EVENTS.RUN_ANIMATION);
+	
+});
+
 document.onclick=(e)=>{
+	// console.log(e)s
 	e.preventDefault();
 	Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
   }

@@ -11,6 +11,7 @@ import { Arrows } from '../objects/Arrows';
 import { Sound } from '../sound/Sound';
 import { Video } from '../objects/Vdeo';
 import { isDevice } from '../utils/utils';
+import { SpritePerzonalized } from '../objects/SpritePerzonalized';
 
 var raycaster = new Raycaster();
 var mouse = new Vector2();
@@ -20,6 +21,7 @@ class Scene1 extends Scene {
 		this.managerLoader = managerLoader;
 		this.bandera= false;
 		this.listener =listener;
+		this.conterRandom=0;
 		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
 		this.events();
@@ -42,8 +44,8 @@ class Scene1 extends Scene {
 		// -------------------escenario
 		const floor = new Floor(this.managerLoader);
 		this.add(floor)
-		// ---------------------------------	----------------------------------------
-		//   botella
+		// 
+		// --------------------------------  botella
 
 		   this.botella = new Botella(this.managerLoader);
 		//   botella.children.map(n =>{
@@ -52,35 +54,40 @@ class Scene1 extends Scene {
 		  
 		  this.add(this.botella)
 
-		// ---------------------------------
-		// -------------cubo para fade in
+		// 
+		// ---------------------------------------------cubo para fade in
 			 this.cube = new Cube(60);
 			this.cube.position.z=6
 			this.add(this.cube);
 		// 
 			
+		// ----------------------------------------- cube for touch
 			this.cubeD = new Cube(4);
-		   this.cubeD.position.set(-3,0,2);		 
-		   this.cubeD.scale.y=6  
-		   this.cubeD.scale.z=10 
-		   this.cubeD.position.set(-3,0,0)
+		   this.cubeD.scale.y=3
+		   this.cubeD.scale.z=30 
+		   this.cubeD.position.set(-3,6,0)
 		   this.cubeD.material.visible=false
 		   this.cubeD.callback = () => {
 			   Observer.emit(EVENTS.RUN_ANIMATION);
 		   }
 		   this.add(this.cubeD);
 
-		// cube for detecter click
-		// video
+		// 
+		// -------------------------------------------- video
 		this.video = new Video();	
 		this.videoGroup = new Group();
 		this.videoGroup.position.set(-3.5,5,0)
 		 this.video.position.set(0,0,2)
 		this.videoGroup.add(this.video)
 		this.add(this.videoGroup)
-		
 		// 
-		// sound
+		// -----------------------------------------  fuegos artificiales
+		this.pyrotechnics = new SpritePerzonalized("./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Fireworks_015.png");
+		this.pyrotechnics.scale.set(4,4,4)
+		this.pyrotechnics.visible=false;
+		this.add(this.pyrotechnics)
+		
+		// --------------------------------------------  sound
 			this.sound = new Audio(this.listener); 
 			const audioLoader = new AudioLoader();
 			audioLoader.load("./assets/sfx_open_bottle.wav", (buffer)=>{
@@ -129,7 +136,7 @@ class Scene1 extends Scene {
 		// 	helpers
 		const gui = new GUI();
 		const folderMaster = gui.addFolder('escena');
-		const cam = gui.addFolder('botella');
+		const cam = gui.addFolder('botella position');
 		cam.add(this.botella.position, 'y',-100, 100).listen();
 		cam.add(this.botella.position, 'x', -100, 100).listen();
 		cam.add(this.botella.position, 'z', -100, 100).listen();
@@ -185,6 +192,10 @@ class Scene1 extends Scene {
 		Observer.on(EVENTS.RUN_ANIMATION,()=>{
 			this.bandera=true;			
 		})
+
+		Observer.on(EVENTS.PLAY_VIDEO2, ()=>{
+			(!this.pyrotechnics.visible) ? this.pyrotechnics.visible=true : this.pyrotechnics.visible=false 
+		})
 		
 	}
 	 onDocumentMouseDown(clientX, clientY, renderer, camera  ) {
@@ -209,8 +220,8 @@ class Scene1 extends Scene {
 		this.arrows.update();		
 
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
+		this.pyrotechnics.update();
 		this.videoGroup.lookAt(camera.position.x,5,camera.position.z)
-
 		this.spotLight.position.set(
 			camera.position.x+10,
 			camera.position.y+10,
