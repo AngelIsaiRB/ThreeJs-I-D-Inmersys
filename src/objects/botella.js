@@ -28,13 +28,13 @@ export class Botella extends Mesh{
 		loader.load('./assets/Arte 3D/botella/scene.gltf', (gltf)=>{						
 			this.liquid = gltf.scene.children[0].getObjectByName('Liquid_Beer_Liquid_0');
 			this.liquid.material.depthWrite=true;
+			this.liquid.material.opacity=1;
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.tap.callback = function(){
 				console.log("chapa")
 			}
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			// this.liquid= this.children[0].getObjectByName('BeerBottle').children[0];
-
 
 			this.add(gltf.scene);
 			this.scale.x=45;
