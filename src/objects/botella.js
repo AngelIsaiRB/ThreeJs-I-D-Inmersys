@@ -47,13 +47,14 @@ export class Botella extends Mesh{
 			gltf.animations.forEach( ( clip ) => {
 				this.mixer.clipAction( clip ).play();
 			} );
-			// console.log(this.foam)
+			console.log(this.liquid.material)
 			const gui = new GUI();
 			const text = gui.addFolder('Liquido properties');
 			text.add(this.liquid.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			text.addColor(this.liquid.material, "color").listen();
 			text.addColor(this.liquid.material, "emissive").listen();
 			text.add(this.liquid.material, "opacity",0.0,1.0).listen();
+			text.add(this.liquid.material, "roughness",0.0,1.0).listen();
 			text.add(this.liquid.material, "envMapIntensity",0.0,2.0).listen();
 			text.add(this.liquid.material, "metalness",0.0,10.0).listen();
 			text.add(this.liquid.material, "envMapIntensity",0.0,10.0).listen();
@@ -70,6 +71,7 @@ export class Botella extends Mesh{
 			textbottle.addColor(this.bottle.material, "color").listen();
 			textbottle.addColor(this.bottle.material, "emissive").listen();
 			textbottle.add(this.bottle.material, "opacity",0.0,1.0).listen();
+			textbottle.add(this.bottle.material, "roughness",0.0,1.0).listen();
 			textbottle.add(this.bottle.material, "envMapIntensity",0.0,2.0).listen();
 			textbottle.add(this.bottle.material, "metalness",0.0,10.0).listen();
 			textbottle.add(this.bottle.material, "envMapIntensity",0.0,10.0).listen();
@@ -86,6 +88,7 @@ export class Botella extends Mesh{
 			textfoam.addColor(this.foam.material, "color").listen();
 			textfoam.addColor(this.foam.material, "emissive").listen();
 			textfoam.add(this.foam.material, "opacity",0.0,1.0).listen();
+			textfoam.add(this.foam.material, "roughness",0.0,1.0).listen();
 			textfoam.add(this.foam.material, "envMapIntensity",0.0,2.0).listen();
 			textfoam.add(this.foam.material, "metalness",0.0,10.0).listen();
 			textfoam.add(this.foam.material, "envMapIntensity",0.0,10.0).listen();
@@ -105,19 +108,30 @@ export class Botella extends Mesh{
 		}
 		events(){
 			Observer.on(EVENTS.LIQUID_CHANGE, ()=>{
-				console.log(this.liquid.material.color)
-				this.liquid.material.color.set(0xff0000)
-				// const changeColor = new TWEEN.Tween(this.liquid.material.color)
-				// .to(()=>{
-				// 	console.log("ejecuting")
-				// 	set(255,0,0)
-				// }
-				// ,1200)
-				// .easing(TWEEN.Easing.Sinusoidal.In)
-				// .onComplete(()=>{
-					
-				// });		
-				// changeColor.start();
+				if(this.liquid.material.color.r  <= 2){
+					const changeColor = new TWEEN.Tween(this.liquid.material.color)
+					.to({
+						r:41,
+					}
+					,1200)
+					.easing(TWEEN.Easing.Linear.None)
+					.onComplete(()=>{
+						
+					});		
+					changeColor.start();
+				}
+				else{
+					const changeColor = new TWEEN.Tween(this.liquid.material.color)
+					.to({
+						r:1,
+					}
+					,1200)
+					.easing(TWEEN.Easing.Linear.None)
+					.onComplete(()=>{
+						
+					});		
+					changeColor.start();
+				}
 				  
 			  });
 		}
