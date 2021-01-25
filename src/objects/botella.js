@@ -30,12 +30,14 @@ export class Botella extends Mesh{
 			this.liquid.material.depthWrite=true;
 			this.liquid.material.opacity=1;
 			this.tap = gltf.scene.children[0].getObjectByName('0');
+			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
+			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
+			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
+
 			this.tap.callback = function(){
 				console.log("chapa")
 			}
-			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
-			// this.liquid= this.children[0].getObjectByName('BeerBottle').children[0];
-
+			// this.liquid= this.children[0].getObjectByName('BeerBottle');
 			this.add(gltf.scene);
 			this.scale.x=45;
 			this.scale.y=45;
@@ -44,11 +46,10 @@ export class Botella extends Mesh{
 			this.mixer = new AnimationMixer( gltf.scene );
 			gltf.animations.forEach( ( clip ) => {
 				this.mixer.clipAction( clip ).play();
-				
 			} );
-			console.log(this.children[0].getObjectByName("Liquid_Beer_Liquid_0").material)
+			// console.log(this.foam)
 			const gui = new GUI();
-			const text = gui.addFolder('botella properties');
+			const text = gui.addFolder('Liquido properties');
 			text.add(this.liquid.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			text.addColor(this.liquid.material, "color").listen();
 			text.addColor(this.liquid.material, "emissive").listen();
@@ -62,8 +63,42 @@ export class Botella extends Mesh{
 			text.add(this.liquid.material, "wireframe",false,true).listen(); //mm
 			text.add(this.liquid.material, "depthWrite",false,true).listen(); //mm
 			text.add(this.liquid.material, "visible",false,true).listen(); //mm
+			text.close();
 
-			text.open();
+			const textbottle = gui.addFolder('botella properties');
+			textbottle.add(this.bottle.material, 'aoMapIntensity', 0.0, 5.0).listen();
+			textbottle.addColor(this.bottle.material, "color").listen();
+			textbottle.addColor(this.bottle.material, "emissive").listen();
+			textbottle.add(this.bottle.material, "opacity",0.0,1.0).listen();
+			textbottle.add(this.bottle.material, "envMapIntensity",0.0,2.0).listen();
+			textbottle.add(this.bottle.material, "metalness",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "envMapIntensity",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "polygonOffset",false,true).listen(); //mm
+			textbottle.add(this.bottle.material, "polygonOffsetFactor",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "polygonOffsetUnits",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "wireframe",false,true).listen(); //mm
+			textbottle.add(this.bottle.material, "depthWrite",false,true).listen(); //mm
+			textbottle.add(this.bottle.material, "visible",false,true).listen(); //mm
+			textbottle.close();
+
+			const textfoam = gui.addFolder('espuma properties');
+			textfoam.add(this.foam.material, 'aoMapIntensity', 0.0, 5.0).listen();
+			textfoam.addColor(this.foam.material, "color").listen();
+			textfoam.addColor(this.foam.material, "emissive").listen();
+			textfoam.add(this.foam.material, "opacity",0.0,1.0).listen();
+			textfoam.add(this.foam.material, "envMapIntensity",0.0,2.0).listen();
+			textfoam.add(this.foam.material, "metalness",0.0,10.0).listen();
+			textfoam.add(this.foam.material, "envMapIntensity",0.0,10.0).listen();
+			textfoam.add(this.foam.material, "polygonOffset",false,true).listen(); //mm
+			textfoam.add(this.foam.material, "polygonOffsetFactor",0.0,10.0).listen();
+			textfoam.add(this.foam.material, "polygonOffsetUnits",0.0,10.0).listen();
+			textfoam.add(this.foam.material, "wireframe",false,true).listen(); //mm
+			textfoam.add(this.foam.material, "depthWrite",false,true).listen(); //mm
+			textfoam.add(this.foam.material, "visible",false,true).listen(); //mm
+			textfoam.close();
+
+			// --------------------
+
 		  },);
 		
 		this.events();

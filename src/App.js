@@ -32,6 +32,7 @@ export class App {
 			antialias: true,
 		})
 		this.renderer.outputEncoding = sRGBEncoding;
+		// this.renderer.xr.enabled=true;
 		
 		// ## Light's config
 		this.renderer.physicallyCorrectLights = true;
