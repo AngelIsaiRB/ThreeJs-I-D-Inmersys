@@ -27,11 +27,14 @@ export class Botella extends Mesh{
 
 		loader.load('./assets/Arte 3D/botella/scene.gltf', (gltf)=>{						
 			this.liquid = gltf.scene.children[0].getObjectByName('Liquid_Beer_Liquid_0');
+			// this.liquid.scale.set(1,1,0.9)
 			this.liquid.material.depthWrite=true;
 			this.liquid.material.opacity=1;
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
+			console.log(gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0'))
+			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
 
 			this.tap.callback = function(){
@@ -47,13 +50,16 @@ export class Botella extends Mesh{
 			gltf.animations.forEach( ( clip ) => {
 				this.mixer.clipAction( clip ).play();
 			} );
-			console.log(this.liquid.material)
+			// console.log(this.liquid.material)
 			const gui = new GUI();
 			const text = gui.addFolder('Liquido properties');
 			text.add(this.liquid.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			text.addColor(this.liquid.material, "color").listen();
 			text.addColor(this.liquid.material, "emissive").listen();
 			text.add(this.liquid.material, "opacity",0.0,1.0).listen();
+			text.add(this.liquid.position, "x",-1.0,1.0).listen();
+			text.add(this.liquid.position, "y",-1.0,1.0).listen();
+			text.add(this.liquid.position, "z",-1.0,1.0).listen();
 			text.add(this.liquid.material, "roughness",0.0,1.0).listen();
 			text.add(this.liquid.material, "envMapIntensity",0.0,2.0).listen();
 			text.add(this.liquid.material, "metalness",0.0,10.0).listen();
