@@ -12,7 +12,7 @@ import { Sound } from '../sound/Sound';
 import { Video } from '../objects/Vdeo';
 import { isDevice } from '../utils/utils';
 import { SpritePerzonalized } from '../objects/SpritePerzonalized';
-import { SpriteMixer } from '../utils/SpriteMixer';
+
 
 var raycaster = new Raycaster();
 var mouse = new Vector2();
@@ -88,38 +88,8 @@ class Scene1 extends Scene {
 		// this.pyrotechnics.scale.set(4,4,4)
 		// this.pyrotechnics.visible=true;
 		// this.add(this.pyrotechnics)
-		this.clock = new Clock();
-		this.spriteMixer = SpriteMixer();
-		this.spriteMixer.addEventListener('finished', (e)=> {
-			console.log(e);
-		});
-
-		this.spriteMixer.addEventListener('loop', (e)=> {
-			console.log(e);
-		});
-		const loadersprite = new TextureLoader();
-		let actions = {};
-		loadersprite.load("./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png", (texture)=> {
-
-			// An ActionSprite is instantiated with these arguments :
-			// - which THREE.Texture to use
-			// - the number of columns in your animation
-			// - the number of rows in your animation
-			const actionSprite = this.spriteMixer.ActionSprite( texture, 8, 4 );
-			actionSprite.setFrame( 9 );
-
-			// Two actions are created with these arguments :
-			// - which actionSprite to use
-			// - index of the beginning of the action
-			// - index of the end of the action
-			// - duration of ONE FRAME in the animation, in milliseconds
-			actions.runRight = this.spriteMixer.Action(actionSprite, 0, 29, 40);
-			// actions.runLeft = spriteMixer.Action(actionSprite, 10, 18, 40);
-
-			actionSprite.scale.set(1.7, 2, 1);
-			this.add( actionSprite );
-			actions.runRight.playLoop();
-		});
+		
+		this.spriteExplot = new SpritePerzonalized(this);
 	
 
 		
@@ -229,9 +199,6 @@ class Scene1 extends Scene {
 			this.bandera=true;			
 		})
 
-		Observer.on(EVENTS.PLAY_VIDEO2, ()=>{
-			(!this.pyrotechnics.visible) ? this.pyrotechnics.visible=true : this.pyrotechnics.visible=false 
-		})
 		
 	}
 	 onDocumentMouseDown(clientX, clientY, renderer, camera  ) {
@@ -254,9 +221,9 @@ class Scene1 extends Scene {
 	update(camera) {	
 		this.video.update();
 		this.arrows.update();
+
+		this.spriteExplot.update();
 		
-		let delta = this.clock.getDelta();
-		this.spriteMixer.update( delta );
 
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
 		// this.pyrotechnics.update();
