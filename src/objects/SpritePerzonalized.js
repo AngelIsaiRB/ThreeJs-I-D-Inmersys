@@ -13,11 +13,11 @@ export class SpritePerzonalized extends Sprite{
         // this.material = new SpriteMaterial({map:map})
     }
     update(){
-        this.conterRandom +=1
-		if (this.conterRandom >= 35) {
-			this.position.set(-6 + (Math.floor(Math.random() * 5) + 1),Math.floor(Math.random() * 12) + 10,0);
-			this.conterRandom=0;
-		}
+        // this.conterRandom +=1
+		// if (this.conterRandom >= 35) {
+		// 	this.position.set(-6 + (Math.floor(Math.random() * 5) + 1),Math.floor(Math.random() * 12) + 10,0);
+		// 	this.conterRandom=0;
+		// }
     }
 
 }
