@@ -33,13 +33,9 @@ export class Botella extends Mesh{
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
-			console.log(gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0'))
+			
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
-
-			this.tap.callback = function(){
-				console.log("chapa")
-			}
 			// this.liquid= this.children[0].getObjectByName('BeerBottle');
 			this.add(gltf.scene);
 			this.scale.x=45;

@@ -32,7 +32,6 @@ export class App {
 			antialias: true,
 		})
 		this.renderer.outputEncoding = sRGBEncoding;
-		// this.renderer.xr.enabled=true;
 		
 		// ## Light's config
 		this.renderer.physicallyCorrectLights = true;
@@ -92,7 +91,6 @@ export class App {
 	events(){
 		
 	Observer.on(EVENTS.MOVE_MOUSE, (clientX, clientY)=>{
-	// console.log("moviendo!")
 	this.scene.onDocumentMouseDown(clientX, clientY, this.renderer, this.camera);
 	});
 	}
@@ -107,7 +105,6 @@ export class App {
 		this.renderer.render(this.scene, this.camera);
 		// Updates here
 		this.scene.update(this.camera);
-
 		this.renderer.setAnimationLoop(() => this.render());
 
 		

@@ -16,7 +16,7 @@ export class SpritePerzonalized  {
 		});
 		const loadersprite = new TextureLoader();
 		let actions = {};
-		loadersprite.load("./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png", (texture)=> {
+		loadersprite.load(path, (texture)=> {
 
 			this.actionSprite = this.spriteMixer.ActionSprite( texture, 8, 4 );
 			this.actionSprite.setFrame( 1 );
@@ -42,7 +42,6 @@ export class SpritePerzonalized  {
         this.conterRandom +=1
 		if (this.conterRandom >= 100) {
             this.actionSprite.position.set(-6 + (Math.floor(Math.random() * 5) + 1),Math.floor(Math.random() * 10) + 8,0);
-              
 			this.conterRandom=0;
 		}
     }

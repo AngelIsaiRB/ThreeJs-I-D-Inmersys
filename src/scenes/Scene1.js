@@ -23,7 +23,6 @@ class Scene1 extends Scene {
 		this.bandera= false;
 		this.listener =listener;
 		this.conterRandom=0;
-		// this.background = new Color('black').convertSRGBToLinear();
 		this.create();
 		this.events();
 	}
@@ -47,12 +46,7 @@ class Scene1 extends Scene {
 		this.add(floor)
 		// 
 		// --------------------------------  botella
-
 		   this.botella = new Botella(this.managerLoader);
-		//   botella.children.map(n =>{
-		// 	console.log(n)
-		//   });		  
-		  
 		  this.add(this.botella)
 
 		// 
@@ -83,16 +77,9 @@ class Scene1 extends Scene {
 		this.add(this.videoGroup)
 		// 
 		// -----------------------------------------  fuegos artificiales
-
-		// this.pyrotechnics = new SpritePerzonalized("./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png");
-		// this.pyrotechnics.scale.set(4,4,4)
-		// this.pyrotechnics.visible=true;
-		// this.add(this.pyrotechnics)
 		
-		this.spriteExplot = new SpritePerzonalized(this);
+		this.spriteExplot = new SpritePerzonalized(this,"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png");
 	
-
-		
 		// --------------------------------------------  sound
 			this.sound = new Audio(this.listener); 
 			const audioLoader = new AudioLoader();
@@ -121,15 +108,6 @@ class Scene1 extends Scene {
 		// figura debajo
 		this.arrows = new Arrows()
 		this.add(this.arrows);
-		
-		// font: helvetiker, gentilis, droid sans, droid serif, optimer
-		// weight: normal, bold
-				
-		// 
-		// axes helper
-		// const axesHelper = new AxesHelper( 10 );		
-		// this.add( axesHelper );		
-		
 		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820,0.1);
 		const device =isDevice();
 		if ( device ){
@@ -157,29 +135,13 @@ class Scene1 extends Scene {
 		text.add(this.grupTextUpBeer.rotation, 'y', -30.0, 30.0).listen();
 		text.add(this.grupTextUpBeer.rotation, 'z', -30.0, 30.0).listen();
 		text.close();
-		// const f = gui.addFolder('f');
-		// f.add(this.shape.position, 'y', -30.0, 30.0).listen();
-		// f.add(this.shape.position, 'x', -30.0, 30.0).listen();
-		// f.add(this.shape.position, 'z', -30.0, 30.0).listen();
-		// f.add(this.shape.rotation, 'x', -30.0, 30.0).listen();
-		// f.add(this.shape.rotation, 'y', -30.0, 30.0).listen();
-		// f.add(this.shape.rotation, 'z', -30.0, 30.0).listen();
-		// f.close();
-		// text.add(this.cube.material, 'opacity', 0.0, 1).listen();
 		
 		cam.close();
 		const ambientLightHelpergui = gui.addFolder('luz ambiente');
 		ambientLightHelpergui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
 		ambientLightHelpergui.add(ambientLight, 'intensity', 0, 10.0, 0.01);
 		ambientLightHelpergui.close();
-		// const directionalLightHelpergui = gui.addFolder('luz direccional');
-		// directionalLightHelpergui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
-		// directionalLightHelpergui.add(light, 'intensity', 0, 20, 0.01);
-		// directionalLightHelpergui.close();
 		folderMaster.close();
-
-		// gui.addColor(new ColorGUIHelper(ambientLight, 'color'), 'value').name('color');
-		// gui.add(light, 'intensity', 0, 2, 0.01);
 		// 
 	}
 	events(){
@@ -208,7 +170,6 @@ class Scene1 extends Scene {
 		raycaster.setFromCamera( mouse,camera );
 	
 		var intersects = raycaster.intersectObjects( this.children ); 
-		// console.log(intersects)
 		if ( intersects.length > 0 ) {
 			
 			if(intersects[0].object.callback){
@@ -226,7 +187,6 @@ class Scene1 extends Scene {
 		
 
 		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
-		// this.pyrotechnics.update();
 		this.videoGroup.lookAt(camera.position.x,5,camera.position.z)
 		this.spotLight.position.set(
 			camera.position.x+10,
