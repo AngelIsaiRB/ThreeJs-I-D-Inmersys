@@ -78,7 +78,7 @@ class Scene1 extends Scene {
 		// 
 		// -----------------------------------------  fuegos artificiales
 		
-		this.spriteExplot = new SpritePerzonalized(this,"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png");
+		this.spriteExplot = new SpritePerzonalized(this,"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png",this.managerLoader);
 	
 		// --------------------------------------------  sound
 			this.sound = new Audio(this.listener); 

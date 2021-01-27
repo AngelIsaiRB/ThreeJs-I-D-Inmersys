@@ -3,7 +3,7 @@ import Observer, { EVENTS } from "../Observer";
 import { SpriteMixer } from '../utils/SpriteMixer';
 export class SpritePerzonalized  {
 
-    constructor(scene,path){
+    constructor(scene,path,managerLoader){
         this.conterRandom=0
         this.clock = new Clock();
 		this.spriteMixer = SpriteMixer();
@@ -14,7 +14,7 @@ export class SpritePerzonalized  {
 		this.spriteMixer.addEventListener('loop', (e)=> {
 			
 		});
-		const loadersprite = new TextureLoader();
+		const loadersprite = new TextureLoader(managerLoader);
 		let actions = {};
 		loadersprite.load(path, (texture)=> {
 
