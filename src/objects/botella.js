@@ -82,6 +82,12 @@ export class Botella extends Mesh{
 			textbottle.add(this.bottle.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			textbottle.addColor(this.bottle.material, "color").listen();
 			textbottle.addColor(this.bottle.material, "emissive").listen();
+			text.add(this.bottle.position, "x",-2.0,2.0).listen();
+			text.add(this.bottle.position, "y",-2.0,2.0).listen();
+			text.add(this.bottle.position, "z",-2.0,2.0).listen();
+			text.add(this.bottle.scale, "x",-2.0,2.0).listen();
+			text.add(this.bottle.scale, "y",-2.0,2.0).listen();
+			text.add(this.bottle.scale, "z",-2.0,2.0).listen();
 			textbottle.add(this.bottle.material, "opacity",0.0,1.0).listen();
 			textbottle.add(this.bottle.material, "alphaTest",0.0,1.0).listen();
 			textbottle.add(this.bottle.material, "roughness",0.0,1.0).listen();
