@@ -30,7 +30,7 @@ export class Botella extends Mesh{
 			// this.liquid.scale.set(1,1,0.9)
 			this.liquid.material.depthWrite=true;
 			this.liquid.material.opacity=1;
-			// this.liquid.material.transparent=false;
+			this.liquid.material.transparent=false;
 			
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
