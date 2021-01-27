@@ -1,6 +1,6 @@
 
 import { update } from '@tweenjs/tween.js';
-import { AnimationMixer, Clock, Group, Mesh, TextureLoader } from 'three';
+import { AnimationMixer, BackSide, Clock, DoubleSide, FrontSide, Group, Mesh, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 import Observer, {EVENTS} from '../Observer';
@@ -30,11 +30,14 @@ export class Botella extends Mesh{
 			// this.liquid.scale.set(1,1,0.9)
 			this.liquid.material.depthWrite=true;
 			this.liquid.material.opacity=1;
-			this.liquid.material.transparent=false;
+			// this.liquid.material.transparent=false;
+			
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
-			
+
+			this.liquid.material.side = DoubleSide;
+			this.bottle.material.side = DoubleSide;
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
 			// this.liquid= this.children[0].getObjectByName('BeerBottle');
@@ -47,7 +50,8 @@ export class Botella extends Mesh{
 			gltf.animations.forEach( ( clip ) => {
 				this.mixer.clipAction( clip ).play();
 			} );
-			// console.log(this.liquid.material)
+			console.log(this.liquid.material.side)
+			console.log(this.bottle.material.side)
 			const gui = new GUI();
 			const text = gui.addFolder('Liquido properties');
 			text.add(this.liquid.material, 'aoMapIntensity', 0.0, 5.0).listen();
@@ -55,9 +59,12 @@ export class Botella extends Mesh{
 			text.addColor(this.liquid.material, "emissive").listen();
 			text.add(this.liquid.material, "opacity",0.0,1.0).listen();
 			text.add(this.liquid.material, "alphaTest",0.0,1.0).listen();
-			text.add(this.liquid.position, "x",-1.0,1.0).listen();
-			text.add(this.liquid.position, "y",-1.0,1.0).listen();
-			text.add(this.liquid.position, "z",-1.0,1.0).listen();
+			text.add(this.liquid.position, "x",-2.0,2.0).listen();
+			text.add(this.liquid.position, "y",-2.0,2.0).listen();
+			text.add(this.liquid.position, "z",-2.0,2.0).listen();
+			text.add(this.liquid.scale, "x",-2.0,2.0).listen();
+			text.add(this.liquid.scale, "y",-2.0,2.0).listen();
+			text.add(this.liquid.scale, "z",-2.0,2.0).listen();
 			text.add(this.liquid.material, "roughness",0.0,1.0).listen();
 			text.add(this.liquid.material, "envMapIntensity",0.0,2.0).listen();
 			text.add(this.liquid.material, "metalness",0.0,10.0).listen();
