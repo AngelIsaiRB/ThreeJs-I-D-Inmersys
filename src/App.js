@@ -64,7 +64,7 @@ export class App {
 
 					const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 
-					// this.scene.background = envMap;
+					this.scene.background = envMap;
 					this.scene.environment = envMap;
 
 				})

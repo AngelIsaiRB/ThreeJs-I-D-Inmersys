@@ -29,12 +29,14 @@ export class Botella extends Mesh{
 			this.liquid = gltf.scene.children[0].getObjectByName('Liquid_Beer_Liquid_0');
 			// this.liquid.scale.set(1,1,0.9)
 			this.liquid.material.depthWrite=true;
-			this.liquid.material.opacity=1;
-			this.liquid.material.transparent=false;
-			
+			this.liquid.material.opacity=0.8;
+			// this.liquid.material.transparent=false;
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
+			this.bottle.renderOrder=0;
+			this.liquid.renderOrder=-1;
+			console.log(this.bottle)
 
 			this.liquid.material.side = DoubleSide;
 			this.bottle.material.side = DoubleSide;
@@ -50,8 +52,6 @@ export class Botella extends Mesh{
 			gltf.animations.forEach( ( clip ) => {
 				this.mixer.clipAction( clip ).play();
 			} );
-			console.log(this.liquid.material.side)
-			console.log(this.bottle.material.side)
 			const gui = new GUI();
 			const text = gui.addFolder('Liquido properties');
 			text.add(this.liquid.material, 'aoMapIntensity', 0.0, 5.0).listen();
@@ -72,6 +72,7 @@ export class Botella extends Mesh{
 			text.add(this.liquid.material, "polygonOffset",false,true).listen(); //mm
 			text.add(this.liquid.material, "polygonOffsetFactor",0.0,10.0).listen();
 			text.add(this.liquid.material, "polygonOffsetUnits",0.0,10.0).listen();
+			// text.add(this.liquid.material, "side",FrontSide,DoubleSide).listen();
 			text.add(this.liquid.material, "wireframe",false,true).listen(); //mm
 			text.add(this.liquid.material, "transparent",false,true).listen(); //mm
 			text.add(this.liquid.material, "depthWrite",false,true).listen(); //mm
@@ -82,12 +83,12 @@ export class Botella extends Mesh{
 			textbottle.add(this.bottle.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			textbottle.addColor(this.bottle.material, "color").listen();
 			textbottle.addColor(this.bottle.material, "emissive").listen();
-			text.add(this.bottle.position, "x",-2.0,2.0).listen();
-			text.add(this.bottle.position, "y",-2.0,2.0).listen();
-			text.add(this.bottle.position, "z",-2.0,2.0).listen();
-			text.add(this.bottle.scale, "x",-2.0,2.0).listen();
-			text.add(this.bottle.scale, "y",-2.0,2.0).listen();
-			text.add(this.bottle.scale, "z",-2.0,2.0).listen();
+			textbottle.add(this.bottle.position, "x",-2.0,2.0).listen();
+			textbottle.add(this.bottle.position, "y",-2.0,2.0).listen();
+			textbottle.add(this.bottle.position, "z",-2.0,2.0).listen();
+			textbottle.add(this.bottle.scale, "x",-2.0,2.0).listen();
+			textbottle.add(this.bottle.scale, "y",-2.0,2.0).listen();
+			textbottle.add(this.bottle.scale, "z",-2.0,2.0).listen();
 			textbottle.add(this.bottle.material, "opacity",0.0,1.0).listen();
 			textbottle.add(this.bottle.material, "alphaTest",0.0,1.0).listen();
 			textbottle.add(this.bottle.material, "roughness",0.0,1.0).listen();
@@ -97,12 +98,12 @@ export class Botella extends Mesh{
 			textbottle.add(this.bottle.material, "polygonOffset",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "polygonOffsetFactor",0.0,10.0).listen();
 			textbottle.add(this.bottle.material, "polygonOffsetUnits",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "side",0.0,2.0).listen();
 			textbottle.add(this.bottle.material, "wireframe",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "transparent",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "depthWrite",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "visible",false,true).listen(); //mm
 			textbottle.close();
-			console.log(this.bottle)
 			const textfoam = gui.addFolder('espuma properties');
 			textfoam.add(this.foam.material, 'aoMapIntensity', 0.0, 5.0).listen();
 			textfoam.addColor(this.foam.material, "color").listen();

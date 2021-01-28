@@ -30,14 +30,14 @@ class Scene1 extends Scene {
 	create() {
 		
 		// background
-		const urls = [
-			"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
-			"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
-			"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
-		]
-		const loader = new  CubeTextureLoader(this.managerLoader);
+		// const urls = [
+		// 	"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
+		// 	"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
+		// 	"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
+		// ]
+		// const loader = new  CubeTextureLoader(this.managerLoader);
 		
-		this.background = loader.load(urls)
+		// this.background = loader.load(urls)
 		
 		
 
