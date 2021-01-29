@@ -120,7 +120,7 @@ canvas {
   }
   .video{
 	width:75%;
-	background-color: rgb(27, 31, 54);
+	/* background-color: rgb(27, 31, 54); */
 	padding:8px;
   }
   /* butons */

@@ -54,7 +54,7 @@ export class App {
 
 		this.scene = new Scene1(manager,listener);
 		// 
-		if(!this.isDevice){
+		
 			const pmremGenerator = new PMREMGenerator( this.renderer );
 			pmremGenerator.compileEquirectangularShader();
 
@@ -65,10 +65,12 @@ export class App {
 					const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 
 					this.scene.background = envMap;
-					this.scene.environment = envMap;
+					if(!this.isDevice){
+						this.scene.environment = envMap;
+					}
 
 				})
-		}
+		
 		
 		// helpers
 		var gui = new GUI();
