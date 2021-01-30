@@ -51,9 +51,9 @@ class Scene1 extends Scene {
 
 		// 
 		// ---------------------------------------------cubo para fade in
-			 this.cube = new Cube(60);
-			this.cube.position.z=6
-			this.add(this.cube);
+			//  this.cube = new Cube(60);
+			// this.cube.position.z=6
+			// this.add(this.cube);
 		// 
 			
 		// ----------------------------------------- cube for touch
@@ -146,15 +146,15 @@ class Scene1 extends Scene {
 	}
 	events(){
 		Observer.on(EVENTS.LODING_OK,()=>{
-			const fadeinEcene = new TWEEN.Tween(this.cube.material)
-				.to({				
-					opacity:0,
-				},1200)
-				.easing(TWEEN.Easing.Sinusoidal.In)
-				.onComplete(()=>{
-					this.remove(this.cube)
-				});		
-				fadeinEcene.start();
+			// const fadeinEcene = new TWEEN.Tween(this.cube.material)
+			// 	.to({				
+			// 		opacity:0,
+			// 	},1200)
+			// 	.easing(TWEEN.Easing.Sinusoidal.In)
+			// 	.onComplete(()=>{
+			// 		this.remove(this.cube)
+			// 	});		
+			// 	fadeinEcene.start();
 		});
 
 		Observer.on(EVENTS.RUN_ANIMATION,()=>{

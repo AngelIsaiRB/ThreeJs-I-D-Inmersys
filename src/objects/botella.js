@@ -38,7 +38,7 @@ export class Botella extends Mesh{
 			this.liquid.renderOrder=-1;
 			console.log(this.bottle)
 
-			this.liquid.material.side = DoubleSide;
+			this.liquid.material.side = FrontSide;
 			this.bottle.material.side = DoubleSide;
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
@@ -72,8 +72,13 @@ export class Botella extends Mesh{
 			text.add(this.liquid.material, "polygonOffset",false,true).listen(); //mm
 			text.add(this.liquid.material, "polygonOffsetFactor",0.0,10.0).listen();
 			text.add(this.liquid.material, "polygonOffsetUnits",0.0,10.0).listen();
+			text.add(this.liquid.material, "side",{FrontSide,DoubleSide }).listen();
+
+
+
 			// text.add(this.liquid.material, "side",FrontSide,DoubleSide).listen();
 			text.add(this.liquid.material, "wireframe",false,true).listen(); //mm
+			text.add(this.liquid.material, "depthTest",false,true).listen(); //mm
 			text.add(this.liquid.material, "transparent",false,true).listen(); //mm
 			text.add(this.liquid.material, "depthWrite",false,true).listen(); //mm
 			text.add(this.liquid.material, "visible",false,true).listen(); //mm

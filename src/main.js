@@ -56,7 +56,7 @@ const progrssBar = () =>{
 		duration: 200,
 		color: '#2E86C1',
 		trailColor: '#eee',
-		trailWidth: 1,
+		trailWidth: 5,
 		svgStyle: null
 	  });
 
@@ -68,11 +68,11 @@ const progrssBar = () =>{
   });
 
   Observer.on(EVENTS.LODING_OK, ()=>{
-	elemento.textContent="";
-	splassScreen.style.display = "none";
-	btn1.style.display = "block"
-	btn2.style.display = "block"
-	btn3.style.display = "block"
+	// elemento.textContent="";
+	// splassScreen.style.display = "none";
+	// btn1.style.display = "block"
+	// btn2.style.display = "block"
+	// btn3.style.display = "block"
   })
 
 

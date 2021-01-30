@@ -57,10 +57,21 @@ body {
 		color: white;
 		display: flex;
 		font-family: Arial, Helvetica, sans-serif;
+		/* font-size:50px; */
+	  	justify-content: center;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	@media all and (min-width:30em){
+		.page-titles h1{
+			color: white;
+		display: flex;
+		font-family: Arial, Helvetica, sans-serif;
 		font-size:50px;
 	  	justify-content: center;
 		margin-top: 10px;
 		margin-bottom: 10px;
+		}
 	}
 .page-titles span{
 		padding-left: 10px;
@@ -68,14 +79,15 @@ body {
 		background-color: rgb(55, 56, 134);
 	}
 .page-progres{
-	width: 100%;
-	  height: 100%;
-	  top:50%;	  
-	  justify-content: center;
-	  display: flex;
-	  position: fixed;
-	  z-index: 1;
-	}
+	width: 200px;
+	height: 40%;
+	margin-left: 25%;
+	top:60%;	  
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	z-index: 1;
+}
 #nameArchives{
 		top: 35%;
 		color: white;
@@ -86,7 +98,7 @@ body {
 		font-size: 1rem;
 		text-shadow: 2px 2px black;
 	}
-	#progressBar{
+#progressBar{
 		margin: 20px;
 		width: 200px;
 		height: 200px;
@@ -134,17 +146,41 @@ canvas {
 	outline: none;	
 	border: 0;
 	text-decoration: none;
-	font-size: 1rem;
-	  color:var(--colorShadeA);
+	font-size: 0.5rem;
+	color:var(--colorShadeA);
 	font-weight: 700;
 	text-transform: uppercase;
 	font-family: inherit;
   }
+  @media all and (min-width:30em){
+	button {
+		font-size: 1rem
+	}
+	.page-progres{
+		width: 100%;
+		height: 100%;
+		top: 50%;  
+		margin-left: 0%;
+		justify-content: center;
+		display: flex;
+		position: fixed;
+		z-index: 1;
+	}
+	.page-titles { 
+		width: 100%;
+		height: 100%;
+		display: flex;
+		position: fixed;
+		justify-content: center;
+		top:30%;	  
+		z-index: 1;
+	  }
+}
   
   button.big-button {
-	 display: none;
-	 padding: 0.7em 1.4em;
-	 border: 2px solid var(--colorShadeA);
+	display: none;
+	padding: 0.7em 1.4em;
+	border: 2px solid var(--colorShadeA);
 	border-radius: 0.5em;
 	background: var(--colorShadeE);
   transform-style: preserve-3d;
