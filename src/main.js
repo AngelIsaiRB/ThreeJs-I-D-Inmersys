@@ -68,11 +68,11 @@ const progrssBar = () =>{
   });
 
   Observer.on(EVENTS.LODING_OK, ()=>{
-	// elemento.textContent="";
-	// splassScreen.style.display = "none";
-	// btn1.style.display = "block"
-	// btn2.style.display = "block"
-	// btn3.style.display = "block"
+	elemento.textContent="";
+	splassScreen.style.display = "none";
+	btn1.style.display = "block"
+	btn2.style.display = "block"
+	btn3.style.display = "block"
   })
 
 
