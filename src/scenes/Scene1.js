@@ -1,4 +1,4 @@
-import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2, AudioLoader, Audio, TextureLoader, Clock } from 'three';
+import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2, AudioLoader, Audio, TextureLoader, Clock, Color, Fog } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { Floor } from '../objects/Floor';
@@ -17,8 +17,9 @@ import { SpritePerzonalized } from '../objects/SpritePerzonalized';
 var raycaster = new Raycaster();
 var mouse = new Vector2();
 class Scene1 extends Scene {
-	constructor(managerLoader,listener) {
+	constructor(managerLoader,listener,render) {
 		super();
+		this.renderer =render
 		this.managerLoader = managerLoader;
 		this.bandera= false;
 		this.listener =listener;
@@ -38,7 +39,11 @@ class Scene1 extends Scene {
 		// const loader = new  CubeTextureLoader(this.managerLoader);
 		
 		// this.background = loader.load(urls)
-		
+
+
+		//efecto de profundidad color engro
+		// this.fog = new Fog(0x000000, 0.0025, 50);
+
 		
 
 		// -------------------escenario
@@ -46,7 +51,7 @@ class Scene1 extends Scene {
 		this.add(floor)
 		// 
 		// --------------------------------  botella
-		   this.botella = new Botella(this.managerLoader);
+		   this.botella = new Botella(this.managerLoader,this.renderer);
 		  this.add(this.botella)
 
 		// 

@@ -52,27 +52,27 @@ export class App {
 			Observer.emit(EVENTS.LOADING,percentComplete,url);
 		};
 
-		this.scene = new Scene1(manager,listener);
 		// 
 		
-			const pmremGenerator = new PMREMGenerator( this.renderer );
-			pmremGenerator.compileEquirectangularShader();
-
-			new RGBELoader(manager)
+		const pmremGenerator = new PMREMGenerator( this.renderer );
+		pmremGenerator.compileEquirectangularShader();
+		
+		new RGBELoader(manager)
 				.setDataType( UnsignedByteType )
 				.load( './assets/Arte 3D/HDRI/Env360.hdr',  ( texture ) => {
-
+					
 					const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-
+					
 					this.scene.background = envMap;
 					if(!this.isDevice){
 						this.scene.environment = envMap;
 					}
-
+					
 				})
-		
-		
-		// helpers
+				
+				this.scene = new Scene1(manager,listener,this.renderer);
+				
+				// helpers
 		var gui = new GUI();
 
 		var cam = gui.addFolder('Camera');

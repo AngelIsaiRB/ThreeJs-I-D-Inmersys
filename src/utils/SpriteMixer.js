@@ -1,10 +1,7 @@
 
-// Author: Felix Mariotto
 
 import { RepeatWrapping, Sprite, SpriteMaterial } from "three";
 
-// Based on Lee Stemkoski's work who coded the core texture offsetting part :
-// http://stemkoski.github.io/Three.js/Texture-Animation.html
 
 export  function SpriteMixer() {
 
@@ -255,19 +252,6 @@ export  function SpriteMixer() {
 	};
 
 
-
-
-
-	/*
-		SpriteMixer.Action returns an object containing the informations related to a
-		specific sequence in an actionSprite. For instance, if the actionSprite
-		contains 20 tiles, an Action could start at tile 5 and finish at tile 8.
-		Action( actionSprite:ActionSprite, indexStart:integer, indexEnd:integer, tileDisplayDuration:integer )
-			- actionSprite is a SpriteMixer.ActionSprite, containing a loaded texture with tiles
-			- indexStart is the starting tile of the animation, index starts at 0.
-			- indexEnd is the ending tile of the animation
-			- tileDisplayDuration is the duration of ONE FRAME in the animation
-	*/
 	
 	function Action( actionSprite, indexStart, indexEnd, tileDisplayDuration ) {
 

@@ -1,17 +1,20 @@
 
 import { update } from '@tweenjs/tween.js';
-import { AnimationMixer, BackSide, Clock, DoubleSide, FrontSide, Group, Mesh, TextureLoader } from 'three';
+import { AnimationMixer, BackSide, Clock, CubeRefractionMapping, CubeTextureLoader, CubeUVRefractionMapping, DoubleSide, FrontSide, Group, ImageUtils, Mesh, PMREMGenerator, RGBFormat, TextureLoader, UnsignedByteType } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
+import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader.js';
 import Observer, {EVENTS} from '../Observer';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
 export class Botella extends Mesh{
 
-    constructor(managerLoader){
+    constructor(managerLoader, render){
 		super();
 		
 		// 
+		this.renderer =render
 		this.clock = new Clock();
 		this.liquid;
 		this.tap;
@@ -22,6 +25,30 @@ export class Botella extends Mesh{
 		const envtexture = textureLoader.load('Skybox//LowRes/nz-128.png');
 		const materialLiquido = textureLoader.load('botella/textures/Beer_Liquid_baseColor.jpeg')
 		// this.groups = new Group();
+
+		// const cubeTextureLoader = new CubeTextureLoader();
+		//  this.refractionCube = cubeTextureLoader.load( './assets/Arte 3D/HDRI/Env360.hdr' );
+		// 		this.refractionCube.mapping = CubeRefractionMapping;
+		// 		this.refractionCube.format = RGBFormat;
+		const cubeTextureLoader = new CubeTextureLoader();
+
+		const envMaps = ( function () {
+const urls = [
+			"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
+			"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
+			"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
+		]
+
+			const refractionCube = cubeTextureLoader.load( urls );
+			refractionCube.mapping = CubeRefractionMapping;
+			refractionCube.format = RGBFormat;
+
+			return refractionCube
+
+		} )();
+
+
+		// 
 		
 		let loader = new GLTFLoader(managerLoader);
 
@@ -36,10 +63,12 @@ export class Botella extends Mesh{
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
 			this.bottle.renderOrder=0;
 			this.liquid.renderOrder=-1;
-			console.log(this.bottle)
-
+			
+			this.liquid.material.envMap = envMaps;
+			
 			this.liquid.material.side = FrontSide;
-			this.bottle.material.side = DoubleSide;
+			this.bottle.material.side = DoubleSide;			
+			console.log(this.liquid)
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
 			// this.liquid= this.children[0].getObjectByName('BeerBottle');
@@ -69,14 +98,10 @@ export class Botella extends Mesh{
 			text.add(this.liquid.material, "envMapIntensity",0.0,2.0).listen();
 			text.add(this.liquid.material, "metalness",0.0,10.0).listen();
 			text.add(this.liquid.material, "envMapIntensity",0.0,10.0).listen();
+			text.add(this.liquid.material, "refractionRatio",0.0,1.0).listen();
 			text.add(this.liquid.material, "polygonOffset",false,true).listen(); //mm
 			text.add(this.liquid.material, "polygonOffsetFactor",0.0,10.0).listen();
 			text.add(this.liquid.material, "polygonOffsetUnits",0.0,10.0).listen();
-			text.add(this.liquid.material, "side",{FrontSide,DoubleSide }).listen();
-
-
-
-			// text.add(this.liquid.material, "side",FrontSide,DoubleSide).listen();
 			text.add(this.liquid.material, "wireframe",false,true).listen(); //mm
 			text.add(this.liquid.material, "depthTest",false,true).listen(); //mm
 			text.add(this.liquid.material, "transparent",false,true).listen(); //mm
@@ -100,6 +125,7 @@ export class Botella extends Mesh{
 			textbottle.add(this.bottle.material, "envMapIntensity",0.0,2.0).listen();
 			textbottle.add(this.bottle.material, "metalness",0.0,10.0).listen();
 			textbottle.add(this.bottle.material, "envMapIntensity",0.0,10.0).listen();
+			textbottle.add(this.bottle.material, "refractionRatio",0.0,6.0).listen();
 			textbottle.add(this.bottle.material, "polygonOffset",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "polygonOffsetFactor",0.0,10.0).listen();
 			textbottle.add(this.bottle.material, "polygonOffsetUnits",0.0,10.0).listen();
@@ -131,7 +157,6 @@ export class Botella extends Mesh{
 			// --------------------
 
 		  },);
-		
 		this.events();
 		}
 		events(){
