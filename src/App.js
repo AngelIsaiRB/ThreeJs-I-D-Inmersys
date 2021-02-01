@@ -70,7 +70,7 @@ export class App {
 					
 				})
 				
-				this.scene = new Scene1(manager,listener,this.renderer);
+				this.scene = new Scene1(manager,listener);
 				
 				// helpers
 		var gui = new GUI();

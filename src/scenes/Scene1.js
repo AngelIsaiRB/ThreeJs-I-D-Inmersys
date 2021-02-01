@@ -17,9 +17,8 @@ import { SpritePerzonalized } from '../objects/SpritePerzonalized';
 var raycaster = new Raycaster();
 var mouse = new Vector2();
 class Scene1 extends Scene {
-	constructor(managerLoader,listener,render) {
+	constructor(managerLoader,listener) {
 		super();
-		this.renderer =render
 		this.managerLoader = managerLoader;
 		this.bandera= false;
 		this.listener =listener;
@@ -51,7 +50,7 @@ class Scene1 extends Scene {
 		this.add(floor)
 		// 
 		// --------------------------------  botella
-		   this.botella = new Botella(this.managerLoader,this.renderer);
+		   this.botella = new Botella(this.managerLoader);
 		  this.add(this.botella)
 
 		// 

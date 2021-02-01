@@ -10,11 +10,10 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
 export class Botella extends Mesh{
 
-    constructor(managerLoader, render){
+    constructor(managerLoader){
 		super();
 		
-		// 
-		this.renderer =render
+		//
 		this.clock = new Clock();
 		this.liquid;
 		this.tap;
@@ -30,19 +29,14 @@ export class Botella extends Mesh{
 		//  this.refractionCube = cubeTextureLoader.load( './assets/Arte 3D/HDRI/Env360.hdr' );
 		// 		this.refractionCube.mapping = CubeRefractionMapping;
 		// 		this.refractionCube.format = RGBFormat;
-		const cubeTextureLoader = new CubeTextureLoader();
+		const cubeTextureLoader = new RGBELoader();
 
 		const envMaps = ( function () {
-const urls = [
-			"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
-			"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
-			"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
-		]
 
-			const refractionCube = cubeTextureLoader.load( urls );
+			const refractionCube = cubeTextureLoader.load(  './assets/Arte 3D/HDRI/Env360.hdr');
 			refractionCube.mapping = CubeRefractionMapping;
 			refractionCube.format = RGBFormat;
-
+			console.log(refractionCube)
 			return refractionCube
 
 		} )();
@@ -64,7 +58,7 @@ const urls = [
 			this.bottle.renderOrder=0;
 			this.liquid.renderOrder=-1;
 			
-			this.liquid.material.envMap = envMaps;
+			// this.bottle.material.emissiveMap = envMaps;
 			
 			this.liquid.material.side = FrontSide;
 			this.bottle.material.side = DoubleSide;			
