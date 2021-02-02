@@ -54,7 +54,7 @@ export class Botella extends Mesh{
 			this.liquid = gltf.scene.children[0].getObjectByName('Liquid_Beer_Liquid_0');
 			// this.liquid.scale.set(1,1,0.9)
 			this.liquid.material.opacity=0.8;
-			this.liquid.material.metalness = 0.5
+			this.liquid.material.metalness = 1.20
 			this.liquid.material.roughness = 0.24
 			
 			// this.liquid.material.transparent=false;
@@ -62,8 +62,8 @@ export class Botella extends Mesh{
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
 			this.bottle.renderOrder=0;
-			this.bottle.material.opacity=1;
-			this.bottle.material.transparent = false;			
+			// this.bottle.material.opacity=1;
+			// this.bottle.material.transparent = false;			
 			this.liquid.renderOrder=-1;
 			
 			// this.bottle.material.emissiveMap = envMaps;
