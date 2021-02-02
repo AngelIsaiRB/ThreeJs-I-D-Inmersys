@@ -1,4 +1,4 @@
-import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2, AudioLoader, Audio, TextureLoader, Clock, Color, Fog } from 'three';
+import { Scene,   HemisphereLight,AxesHelper, CubeTextureLoader, Group, SpotLight, Raycaster, Vector2, AudioLoader, Audio, TextureLoader, Clock, Color, Fog, MeshPhongMaterial, CubeRefractionMapping, SphereGeometry, Mesh } from 'three';
 import { Botella } from '../objects/botella';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { Floor } from '../objects/Floor';
@@ -31,10 +31,10 @@ class Scene1 extends Scene {
 		
 		// background
 		// const urls = [
-		// 	"./assets/Arte 3D/Skybox/HighRes/px.jpg","./assets/Arte 3D/Skybox/HighRes/nx.jpg",
-		// 	"./assets/Arte 3D/Skybox/HighRes/py.jpg","./assets/Arte 3D/Skybox/HighRes/ny.jpg",
-		// 	"./assets/Arte 3D/Skybox/HighRes/pz.jpg","./assets/Arte 3D/Skybox/HighRes/nz.jpg",
-		// ]
+		// 		"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
+		// 		"./assets/Arte 3D/HDRI/jpg/Env_py.jpg","./assets/Arte 3D/HDRI/jpg/Env_ny.jpg",
+		// 		"./assets/Arte 3D/HDRI/jpg/Env_pz.jpg","./assets/Arte 3D/HDRI/jpg/Env_nz.jpg",
+		// 	]
 		// const loader = new  CubeTextureLoader(this.managerLoader);
 		
 		// this.background = loader.load(urls)
@@ -59,6 +59,17 @@ class Scene1 extends Scene {
 			// this.cube.position.z=6
 			// this.add(this.cube);
 		// 
+		// const geometry = new SphereGeometry( 100, 32, 16 );
+		// const urls = [
+		// 	"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
+		// 	"./assets/Arte 3D/HDRI/jpg/Env_py.jpg","./assets/Arte 3D/HDRI/jpg/Env_ny.jpg",
+		// 	"./assets/Arte 3D/HDRI/jpg/Env_pz.jpg","./assets/Arte 3D/HDRI/jpg/Env_nz.jpg",
+		// ]
+		// const textureCube = new CubeTextureLoader().load( urls );
+		// textureCube.mapping = CubeRefractionMapping;
+		// const material = new MeshPhongMaterial( { color: 0xffffff,  envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );
+		// this.cube2 = new Mesh(geometry, material)
+		// this.add(this.cube2)
 			
 		// ----------------------------------------- cube for touch
 			this.cubeD = new Cube(4);

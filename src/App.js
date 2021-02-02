@@ -67,7 +67,6 @@ export class App {
 					if(!this.isDevice){
 						this.scene.environment = envMap;
 					}
-					
 				})
 				
 				this.scene = new Scene1(manager,listener);

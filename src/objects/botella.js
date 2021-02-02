@@ -1,6 +1,6 @@
 
 import { update } from '@tweenjs/tween.js';
-import { AnimationMixer, BackSide, Clock, CubeRefractionMapping, CubeTextureLoader, CubeUVRefractionMapping, DoubleSide, FrontSide, Group, ImageUtils, Mesh, PMREMGenerator, RGBFormat, TextureLoader, UnsignedByteType } from 'three';
+import { AnimationMixer, BackSide, Clock, CubeRefractionMapping, CubeTextureLoader, CubeUVRefractionMapping, DoubleSide, FrontSide, Group, ImageUtils, Mesh, MeshPhongMaterial, PMREMGenerator, RGBFormat, TextureLoader, UnsignedByteType } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 import { WaterRefractionShader } from 'three/examples/jsm/shaders/WaterRefractionShader.js';
@@ -71,6 +71,22 @@ export class Botella extends Mesh{
 			this.liquid.material.side = FrontSide;
 			this.bottle.material.side = BackSide;			
 			console.log(this.liquid)
+
+
+			// 
+			const urls = [
+				"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
+				"./assets/Arte 3D/HDRI/jpg/Env_py.jpg","./assets/Arte 3D/HDRI/jpg/Env_ny.jpg",
+				"./assets/Arte 3D/HDRI/jpg/Env_pz.jpg","./assets/Arte 3D/HDRI/jpg/Env_nz.jpg",
+			]
+			const textureCube = new CubeTextureLoader().load( urls );
+			textureCube.mapping = CubeRefractionMapping;
+			// this.liquid.material.envMap = textureCube
+			// this.liquid.material.refractionRatio = 0.5
+			// this.liquid.material.reflectivity = 0.5
+			// this.liquid.material = new MeshPhongMaterial( {  envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
+			console.log(this.bottle)
+			// 
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
 			// this.liquid= this.children[0].getObjectByName('BeerBottle');
@@ -136,6 +152,7 @@ export class Botella extends Mesh{
 			textbottle.add(this.bottle.material, "wireframe",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "transparent",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "depthWrite",false,true).listen(); //mm
+			textbottle.add(this.bottle.material, "depthTest",false,true).listen(); //mm
 			textbottle.add(this.bottle.material, "visible",false,true).listen(); //mm
 			textbottle.close();
 			const textfoam = gui.addFolder('espuma properties');
