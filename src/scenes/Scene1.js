@@ -149,18 +149,6 @@ class Scene1 extends Scene {
 		// 
 	}
 	events(){
-		Observer.on(EVENTS.LODING_OK,()=>{
-			// const fadeinEcene = new TWEEN.Tween(this.cube.material)
-			// 	.to({				
-			// 		opacity:0,
-			// 	},1200)
-			// 	.easing(TWEEN.Easing.Sinusoidal.In)
-			// 	.onComplete(()=>{
-			// 		this.remove(this.cube)
-			// 	});		
-			// 	fadeinEcene.start();
-		});
-
 		Observer.on(EVENTS.RUN_ANIMATION,()=>{
 			this.bandera=true;			
 		})
