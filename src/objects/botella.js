@@ -41,7 +41,11 @@ export class Botella extends Mesh{
 
 		} )();
 
-
+		const sides = {
+			FrontSide,
+			BackSide,
+			DoubleSide
+		}
 		// 
 		
 		let loader = new GLTFLoader(managerLoader);
@@ -49,19 +53,23 @@ export class Botella extends Mesh{
 		loader.load('./assets/Arte 3D/botella/scene.gltf', (gltf)=>{						
 			this.liquid = gltf.scene.children[0].getObjectByName('Liquid_Beer_Liquid_0');
 			// this.liquid.scale.set(1,1,0.9)
-			this.liquid.material.depthWrite=true;
 			this.liquid.material.opacity=0.8;
+			this.liquid.material.metalness = 0.5
+			this.liquid.material.roughness = 0.24
+			
 			// this.liquid.material.transparent=false;
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
 			this.bottle.renderOrder=0;
+			this.bottle.material.opacity=1;
+			this.bottle.material.transparent = false;			
 			this.liquid.renderOrder=-1;
 			
 			// this.bottle.material.emissiveMap = envMaps;
 			
 			this.liquid.material.side = FrontSide;
-			this.bottle.material.side = DoubleSide;			
+			this.bottle.material.side = BackSide;			
 			console.log(this.liquid)
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
@@ -96,6 +104,7 @@ export class Botella extends Mesh{
 			text.add(this.liquid.material, "polygonOffset",false,true).listen(); //mm
 			text.add(this.liquid.material, "polygonOffsetFactor",0.0,10.0).listen();
 			text.add(this.liquid.material, "polygonOffsetUnits",0.0,10.0).listen();
+			// text.add(this.liquid.material, "side",sides).listen();
 			text.add(this.liquid.material, "wireframe",false,true).listen(); //mm
 			text.add(this.liquid.material, "depthTest",false,true).listen(); //mm
 			text.add(this.liquid.material, "transparent",false,true).listen(); //mm
