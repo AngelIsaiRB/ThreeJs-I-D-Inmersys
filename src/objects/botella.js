@@ -61,9 +61,9 @@ export class Botella extends Mesh{
 			this.tap = gltf.scene.children[0].getObjectByName('0');
 			this.capOpener = gltf.scene.children[0].getObjectByName('Cap_Opener');
 			this.bottle =gltf.scene.children[0].getObjectByName('Bottle_Beer_Bottle_0');
-			this.bottle.renderOrder=0;
 			// this.bottle.material.opacity=1;
 			// this.bottle.material.transparent = false;			
+			this.bottle.renderOrder=0;
 			this.liquid.renderOrder=-1;
 			
 			// this.bottle.material.emissiveMap = envMaps;
@@ -84,7 +84,7 @@ export class Botella extends Mesh{
 			// this.liquid.material.envMap = textureCube
 			// this.liquid.material.refractionRatio = 0.5
 			// this.liquid.material.reflectivity = 0.5
-			this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
+			// this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
 			console.log(this.bottle)
 			// 
 			// this.liquid.scale.set(0.99,0.99,0.99)			
