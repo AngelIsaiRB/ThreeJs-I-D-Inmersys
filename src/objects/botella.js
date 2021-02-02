@@ -84,7 +84,7 @@ export class Botella extends Mesh{
 			// this.liquid.material.envMap = textureCube
 			// this.liquid.material.refractionRatio = 0.5
 			// this.liquid.material.reflectivity = 0.5
-			// this.liquid.material = new MeshPhongMaterial( {  envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
+			this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
 			console.log(this.bottle)
 			// 
 			// this.liquid.scale.set(0.99,0.99,0.99)			
