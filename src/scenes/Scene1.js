@@ -123,7 +123,7 @@ class Scene1 extends Scene {
 		// figura debajo
 		this.arrows = new Arrows()
 		this.add(this.arrows);
-		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820,0.1);
+		const ambientLight = new HemisphereLight(0xffeeb1, 0x080820,2.8);
 		const device =isDevice();
 		if ( device ){
 			ambientLight.intensity = 1.5

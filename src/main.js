@@ -1,7 +1,9 @@
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 import { App } from './App';
 import Observer, { EVENTS } from './Observer';
 var ProgressBar = require('progressbar.js');
 import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
+
 
 
 const app = new App(document.querySelector('#game-container'));

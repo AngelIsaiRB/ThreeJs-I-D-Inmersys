@@ -70,21 +70,19 @@ export class Botella extends Mesh{
 			
 			this.liquid.material.side = FrontSide;
 			this.bottle.material.side = BackSide;			
-			console.log(this.liquid)
-
-
+			
 			// 
 			const urls = [
-				"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
+				"./assets/Arte 3D/HDRI/jpg/Env_nz.jpg","./assets/Arte 3D/HDRI/jpg/Env_pz.jpg",
 				"./assets/Arte 3D/HDRI/jpg/Env_py.jpg","./assets/Arte 3D/HDRI/jpg/Env_ny.jpg",
-				"./assets/Arte 3D/HDRI/jpg/Env_pz.jpg","./assets/Arte 3D/HDRI/jpg/Env_nz.jpg",
+				"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
 			]
 			const textureCube = new CubeTextureLoader().load( urls );
 			textureCube.mapping = CubeRefractionMapping;
 			// this.liquid.material.envMap = textureCube
 			// this.liquid.material.refractionRatio = 0.5
 			// this.liquid.material.reflectivity = 0.5
-			// this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
+			this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
 			console.log(this.bottle)
 			// 
 			// this.liquid.scale.set(0.99,0.99,0.99)			
