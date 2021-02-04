@@ -28,7 +28,7 @@ class Scene1 extends Scene {
 	}
 
 	create() {
-		
+		console.log("1")
 		// background
 		// const urls = [
 		// 		"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
@@ -49,10 +49,11 @@ class Scene1 extends Scene {
 		const floor = new Floor(this.managerLoader);
 		this.add(floor)
 		// 
+		console.log("2")
 		// --------------------------------  botella
 		   this.botella = new Botella(this.managerLoader);
 		  this.add(this.botella)
-
+		  console.log("3")
 		// 
 		// ---------------------------------------------cubo para fade in
 			//  this.cube = new Cube(60);
@@ -81,7 +82,7 @@ class Scene1 extends Scene {
 			   Observer.emit(EVENTS.RUN_ANIMATION);
 		   }
 		   this.add(this.cubeD);
-
+		   console.log("4")
 		// 
 		// -------------------------------------------- video
 		this.video = new Video();	
@@ -92,7 +93,7 @@ class Scene1 extends Scene {
 		this.add(this.videoGroup)
 		// 
 		// -----------------------------------------  fuegos artificiales
-		
+		console.log("5")
 		this.spriteExplot = new SpritePerzonalized(this,"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png",this.managerLoader);
 	
 		// --------------------------------------------  sound
@@ -106,7 +107,7 @@ class Scene1 extends Scene {
 					this.sound.play();								
 				})
 			});  
-			
+			console.log("6")
 			
 		// 
 
@@ -120,6 +121,7 @@ class Scene1 extends Scene {
 		this.grupTextUpBeer.add(this.textUPBeer, this.textUPBeerBegind)
 		this.add(this.grupTextUpBeer);
 		// 
+		console.log("7")
 		// figura debajo
 		this.arrows = new Arrows()
 		this.add(this.arrows);
@@ -131,7 +133,7 @@ class Scene1 extends Scene {
 		this.spotLight = new SpotLight(0xffa95c, 4);
 		this.add( ambientLight, this.spotLight);
 
-
+		console.log("8")
 		// 	helpers
 		const gui = new GUI();
 		const folderMaster = gui.addFolder('escena');
@@ -158,6 +160,7 @@ class Scene1 extends Scene {
 		ambientLightHelpergui.close();
 		folderMaster.close();
 		// 
+		console.log("9")
 	}
 	events(){
 		Observer.on(EVENTS.RUN_ANIMATION,()=>{

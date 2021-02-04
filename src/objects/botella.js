@@ -12,7 +12,7 @@ export class Botella extends Mesh{
 
     constructor(managerLoader){
 		super();
-		
+		console.log("b-0")
 		//
 		this.clock = new Clock();
 		this.liquid;
@@ -85,6 +85,7 @@ export class Botella extends Mesh{
 			this.liquid.material = new MeshPhongMaterial( { color:0xf28e1c, envMap: textureCube, refractionRatio: 0.98, reflectivity: 0.9 } );				
 			console.log(this.bottle)
 			// 
+			console.log("b-1")
 			// this.liquid.scale.set(0.99,0.99,0.99)			
 			this.foam =gltf.scene.children[0].getObjectByName('Foam_BubblesTop_0');
 			// this.liquid= this.children[0].getObjectByName('BeerBottle');
@@ -171,10 +172,10 @@ export class Botella extends Mesh{
 			textfoam.add(this.foam.material, "depthWrite",false,true).listen(); //mm
 			textfoam.add(this.foam.material, "visible",false,true).listen(); //mm
 			textfoam.close();
-
 			// --------------------
-
-		  },);
+			
+		},);
+		console.log("b-2")
 		this.events();
 		}
 		events(){
