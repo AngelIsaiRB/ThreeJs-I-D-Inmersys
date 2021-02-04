@@ -6,8 +6,6 @@ export class Video extends Mesh{
 
     constructor() {
 		super();
-        // const video = document.getElementById( 'video2' );
-        // console.log(video)
       video = document.createElement( 'video' );
     video.src = "https://res.cloudinary.com/angelisai/video/upload/v1611240154/cqdn1oxqghdkmqwqphjd.mp4";
     video.setAttribute('crossorigin', 'anonymous');
@@ -27,7 +25,6 @@ export class Video extends Mesh{
     this.geometry = movieGeometry;
     this.material = movieMaterial;
     this.material.visible=false;
-    // video.play();      
     Observer.on(EVENTS.PLAY_VIDEO2, ()=>{
         if(!this.material.visible ){
             this.material.visible=true;

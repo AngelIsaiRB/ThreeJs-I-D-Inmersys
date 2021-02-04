@@ -192,18 +192,17 @@ class Scene1 extends Scene {
 		this.spriteExplot.update();
 		
 		
-		try{
-			this.grupTextUpBeer.quaternion.copy(camera.quaternion)
-		this.videoGroup.lookAt(camera.position.x,5,camera.position.z)
-		this.spotLight.position.set(
-			camera.position.x+10,
-			camera.position.y+10,
-			camera.position.z+10
-		)
+	
+		this.grupTextUpBeer.quaternion.copy(camera.quaternion)
+		if(this.spotLight.position && camera.position){
+			this.videoGroup.lookAt(camera.position.x,5,camera.position.z)
+			this.spotLight.position.set(
+				camera.position.x+10,
+				camera.position.y+10,
+				camera.position.z+10
+			)
 		}
-		catch(e){
-			console.log("10")
-		}
+		
 		if(this.bandera){ //evento click tapa
 			this.botella.update()
 		}
