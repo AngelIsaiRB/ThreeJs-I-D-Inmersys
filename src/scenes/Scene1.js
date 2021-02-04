@@ -87,14 +87,16 @@ class Scene1 extends Scene {
 		// -------------------------------------------- video
 		this.video = new Video();	
 		this.videoGroup = new Group();
-		this.videoGroup.position.set(-3.5,5,0)
-		 this.video.position.set(0,0,2)
+		// this.videoGroup.position.set(-3.5,5,0)
+		//  this.video.position.set(0,0,2)
 		this.videoGroup.add(this.video)
 		this.add(this.videoGroup)
 		// 
 		// -----------------------------------------  fuegos artificiales
 		console.log("5")
-		this.spriteExplot = new SpritePerzonalized(this,"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png",this.managerLoader);
+		this.spriteExplot = new SpritePerzonalized(this,
+			"./assets/Assets 2D/Secuencia imagenes/Fireworks_Sequence_512px15fps/Explosion.png",
+			this.managerLoader);
 	
 		// --------------------------------------------  sound
 			this.sound = new Audio(this.listener); 
@@ -114,8 +116,8 @@ class Scene1 extends Scene {
 		// texto 3D
 		this.grupTextUpBeer = new Group();
 		this.grupTextUpBeer.position.set(-3.9,12,0)
-		this.textUPBeer = new Text('DESCUBRE DE QUE ESTAMOS ECHOS',{color: 0xFFC629},{ color: 0x000000 });
-		this.textUPBeerBegind = new Text('ABRE LA TAPA HACIENDO TAP',{color: 0xFFC629},{ color: 0x000000 });
+		this.textUPBeer = new Text('DESCUBRE DE QUE ESTAMOS ECHOS',{color: 0xFFC629},{ color: 0x000000 },this.managerLoader);
+		this.textUPBeerBegind = new Text('ABRE LA TAPA HACIENDO TAP',{color: 0xFFC629},{ color: 0x000000 },this.managerLoader);
 		this.textUPBeer.position.set(0,1,0);						
 		this.textUPBeerBegind.position.set(0,0,0);
 		this.grupTextUpBeer.add(this.textUPBeer, this.textUPBeerBegind)

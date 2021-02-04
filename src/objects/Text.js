@@ -4,9 +4,9 @@ import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 
 export  class Text extends Mesh {
 
-    constructor( textRecived, colorPrincipal = {color: 0xFFC629}, colorSecundary = { color: 0x000000 } ){
+    constructor( textRecived, colorPrincipal = {color: 0xFFC629}, colorSecundary = { color: 0x000000 },managerLoader ){
         super();
-        const loadertext = new FontLoader();
+        const loadertext = new FontLoader(managerLoader);
 		var materialFront = new MeshBasicMaterial( colorPrincipal );
 		var materialSide = new MeshBasicMaterial( colorSecundary );
 		var materialArray = [ materialFront, materialSide ];
