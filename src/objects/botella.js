@@ -77,7 +77,7 @@ export class Botella extends Mesh{
 				"./assets/Arte 3D/HDRI/jpg/Env_py.jpg","./assets/Arte 3D/HDRI/jpg/Env_ny.jpg",
 				"./assets/Arte 3D/HDRI/jpg/Env_px.jpg","./assets/Arte 3D/HDRI/jpg/Env_nx.jpg",
 			]
-			const textureCube = new CubeTextureLoader().load( urls );
+			const textureCube = new CubeTextureLoader(managerLoader).load( urls );
 			textureCube.mapping = CubeRefractionMapping;
 			// this.liquid.material.envMap = textureCube
 			// this.liquid.material.refractionRatio = 0.5

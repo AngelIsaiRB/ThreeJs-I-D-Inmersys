@@ -51,7 +51,7 @@ class Scene1 extends Scene {
 		// 
 		console.log("2")
 		// --------------------------------  botella
-		   this.botella = new Botella(this.managerLoader);
+		  this.botella = new Botella(this.managerLoader);
 		  this.add(this.botella)
 		  console.log("3")
 		// 
@@ -87,8 +87,8 @@ class Scene1 extends Scene {
 		// -------------------------------------------- video
 		this.video = new Video();	
 		this.videoGroup = new Group();
-		// this.videoGroup.position.set(-3.5,5,0)
-		//  this.video.position.set(0,0,2)
+		this.videoGroup.position.set(-3.5,5,0)
+		 this.video.position.set(0,0,2)
 		this.videoGroup.add(this.video)
 		this.add(this.videoGroup)
 		// 
