@@ -59,7 +59,7 @@ export class App {
 		
 		new RGBELoader(manager)
 				.setDataType( UnsignedByteType )
-				.load( './assets/Arte 3D/HDRI/Env360.hdr',  ( texture ) => {
+				.load( './assets/Arte 3D/HDRI/Env360optim.hdr',  ( texture ) => {
 					
 					const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 					
