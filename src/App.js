@@ -5,6 +5,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import Observer, { EVENTS } from './Observer';
 import { isDevice } from './utils/utils';
+import { PostprocessingPersonalized } from './postprocessings/postprocessing';
 
 
 export class App {
@@ -69,9 +70,15 @@ export class App {
 					}
 				})
 				
-				this.scene = new Scene1(manager,listener);
-				
-				// helpers
+		this.scene = new Scene1(manager,listener);
+		///////////////////////////////////////////////////////////////
+		//        postporcessing    ////////////////////////////////// 
+		///////////////////////////////////////////////////////////////
+
+		this.pross = new PostprocessingPersonalized(this.renderer, this.scene, this.camera)
+
+
+		// helpers
 		var gui = new GUI();
 
 		var cam = gui.addFolder('Camera');
@@ -103,11 +110,13 @@ export class App {
 	}
 
 	render() {
-		this.renderer.render(this.scene, this.camera);
 		// Updates here
+		// if usas un postprocessing no necesitas la linea de abajo de lo contrario si es necesaria
+		// this.renderer.render(this.scene, this.camera);
+		this.pross.render();
 		this.scene.update(this.camera);
 		this.renderer.setAnimationLoop(() => this.render());
-
+		
 		
 
 	}
