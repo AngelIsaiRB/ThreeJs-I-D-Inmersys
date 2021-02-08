@@ -21,7 +21,6 @@ import { Vector2 } from 'three';
 export class PostprocessingPersonalized extends EffectComposer{
     constructor(render, scene, camera){
         super(render);
-        
         this.addPass( new RenderPass( scene, camera ) );
         this.setPixelRatio( window.devicePixelRatio );
 		this.setSize( window.innerWidth, window.innerHeight );
