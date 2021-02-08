@@ -11,9 +11,11 @@ import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
 import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader.js';
 import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader.js';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
 
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
+import { Vector2 } from 'three';
 export class PostprocessingPersonalized extends EffectComposer{
     constructor(render, scene, camera){
         super(render);
@@ -62,12 +64,17 @@ export class PostprocessingPersonalized extends EffectComposer{
         const colorifyShader = new ShaderPass( ColorifyShader );
         colorifyShader.enabled=false
         this.addPass(colorifyShader);
-
+        
         const afterimagePass = new AfterimagePass(  );
         afterimagePass.enabled=false
         this.addPass(afterimagePass);
 
-        
+        const glitchPass = new GlitchPass(  );
+        glitchPass.enabled=false
+        this.addPass(glitchPass);
+
+      
+     
 
         var gui = new GUI();
 		var cam = gui.addFolder('Shaders');
@@ -88,6 +95,8 @@ export class PostprocessingPersonalized extends EffectComposer{
         cam.add(effectVignette, "enabled",false,true ).listen();
         var cam = gui.addFolder('colorifyShader B/N');
         cam.add(colorifyShader, "enabled",false,true ).listen();
+        var cam = gui.addFolder('glitchPass ');
+        cam.add(glitchPass, "enabled",false,true ).listen();
         var cam = gui.addFolder('afterimagePass');
         cam.add( afterimagePass.uniforms[ "damp" ], 'value', 0, 1 ).step( 0.001 );
         cam.add(afterimagePass, "enabled",false,true ).listen();
