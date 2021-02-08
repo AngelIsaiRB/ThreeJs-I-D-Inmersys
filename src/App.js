@@ -5,7 +5,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import Observer, { EVENTS } from './Observer';
 import { isDevice } from './utils/utils';
-import { PostprocessingPersonalized } from './postprocessings/postprocessing';
+import { PostprocessingPersonalized } from './postprocessings/PostprocessingsPersonalized';
 
 
 export class App {
