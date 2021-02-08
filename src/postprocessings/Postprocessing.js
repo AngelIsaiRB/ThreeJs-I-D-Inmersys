@@ -13,6 +13,8 @@ import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader.js';
 import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { Vector2 } from 'three';
@@ -73,8 +75,18 @@ export class PostprocessingPersonalized extends EffectComposer{
         glitchPass.enabled=false
         this.addPass(glitchPass);
 
-      
-     
+        const params = {
+            exposure: 1,
+            bloomStrength: 1.5,
+            bloomThreshold: 0,
+            bloomRadius: 0
+        };
+        const bloomPass = new UnrealBloomPass( new Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+		bloomPass.threshold = params.bloomThreshold;
+		bloomPass.strength = params.bloomStrength;
+		bloomPass.radius = params.bloomRadius;
+        bloomPass.enabled=false;
+        this.addPass( bloomPass );
 
         var gui = new GUI();
 		var cam = gui.addFolder('Shaders');
@@ -100,6 +112,11 @@ export class PostprocessingPersonalized extends EffectComposer{
         var cam = gui.addFolder('afterimagePass');
         cam.add( afterimagePass.uniforms[ "damp" ], 'value', 0, 1 ).step( 0.001 );
         cam.add(afterimagePass, "enabled",false,true ).listen();
+        var cam = gui.addFolder('bloomPass');
+        cam.add(bloomPass, "enabled",false,true ).listen();
+        cam.add( bloomPass,"threshold", 0, 1 ).step( 0.001 );
+        cam.add( bloomPass,"strength", 0, 1 ).step( 0.001 );
+        cam.add( bloomPass,"radius", 0, 1 ).step( 0.001 );
 		cam.close();
         
     }
