@@ -11,6 +11,7 @@ let elemento = document.getElementById("nameArchives");
 let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
+let btn4 = document.getElementById("btn4");
 let bar;
 let splassScreen = document.getElementById("splassScreen");
 
@@ -32,6 +33,9 @@ btn2.onclick = () =>{
 
 btn3.onclick =()=>{
 	Observer.emit(EVENTS.PLAY_VIDEO2);
+}
+btn4.onclick =()=>{
+	Observer.emit(EVENTS.CHANGE_MATERIAL);
 }
 
 document.addEventListener('touchend', (e) =>{
@@ -75,6 +79,7 @@ const progrssBar = () =>{
 	btn1.style.display = "block"
 	btn2.style.display = "block"
 	btn3.style.display = "block"
+	btn4.style.display = "block"
   })
 
 
