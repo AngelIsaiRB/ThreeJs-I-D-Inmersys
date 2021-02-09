@@ -32,10 +32,7 @@ module.exports = {
 				{
 					from: './style',
 					to: 'style'
-				},{
-					from: './scripts',
-					to:'scripts'
-				},
+				}
 			]
 		}
 		),

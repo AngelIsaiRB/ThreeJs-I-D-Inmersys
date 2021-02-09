@@ -1,4 +1,4 @@
-import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, PMREMGenerator, ReinhardToneMapping, LinearToneMapping, UnsignedByteType, LoadingManager, AudioListener, Scene } from 'three';
+import { PerspectiveCamera,  WebGLRenderer, sRGBEncoding, Vector3, PMREMGenerator, ReinhardToneMapping, LinearToneMapping, UnsignedByteType, LoadingManager, AudioListener } from 'three';
 import Scene1 from './scenes/Scene1';
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
@@ -57,7 +57,6 @@ export class App {
 		
 		const pmremGenerator = new PMREMGenerator( this.renderer );
 		pmremGenerator.compileEquirectangularShader();
-		this.scene = new Scene1(manager,listener);
 		
 		new RGBELoader(manager)
 				.setDataType( UnsignedByteType )
@@ -71,9 +70,11 @@ export class App {
 					}
 				})
 				
+		this.scene = new Scene1(manager,listener);
 		///////////////////////////////////////////////////////////////
 		//        postporcessing    ////////////////////////////////// 
 		///////////////////////////////////////////////////////////////
+
 		this.pross = new PostprocessingPersonalized(this.renderer, this.scene, this.camera)
 
 
