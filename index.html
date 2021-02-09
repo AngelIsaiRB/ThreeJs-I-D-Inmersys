@@ -1,46 +1,177 @@
 <!DOCTYPE html>
-<html lang="es">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Botella</title>
-	<link rel="icon" type="image/png" href="./assets/Assets 2D/UI/inmersy.png" />
-	<link rel="stylesheet" href="./style/index.css">
-	<link rel="stylesheet" href="./style/animate.min.css">
+<!-- three.js library -->
+<script src='./scripts/vendor/three.js/build/three.min.js'></script>
 	
-</head>
+	<script src='./scripts/vendor/three.js/GLTFLoader.js'></script>
+	
+	<script src='./scripts/build-ar/ar-nft.js'></script>
 
-<body>
-	<div id="splassScreen">
-		<div class="page-titles">
-			<div>
-				<h1><span>Proyecto demo:</span></h1>
-				<h1><span>programacion web</span></h1>
-			</div>
-		</div>
-		<div class="page-progres">
-			<div id="progressBar"></div>
-			<span id="nameArchives">cargando...</span>
-		</div>
-		<div class="splass">		
-			<img src="./assets/Assets 2D/UI/Splashscreen_fondo.png" alt="">
-		</div>
-	</div>
-	<div class="controls">
-		<button class="big-button" id="btn1"  >color liquido</button>
-		<button class="big-button-secundary" id="btn2" >video</button>		
-		<button class="big-button-third"  id="btn3" >video dentro</button>		
-		<button class="big-button-refra" id="btn4"  >⚠️ cambiar liquido</button>
-	</div>
-	<div class="video-container animate__animated animate__zoomIn" id="video-container-controler">
-		<!-- loop muted -->
-		<video class="video" id="video"    >
-			<source src="https://res.cloudinary.com/angelisai/video/upload/v1611240154/cqdn1oxqghdkmqwqphjd.mp4" type="video/mp4">
-		</video>
-	</div>
-	<div id="game-container"></div>
-	
+<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
+
+<body style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin : 0px; overflow: hidden;'>
+    <style>
+        .arjs-loader {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .arjs-loader-spinner {
+            -webkit-transform: spin 1s linear infinite;
+            z-index: 10;
+            animation: spin 1s linear infinite;
+            border: 3px solid #ddd;
+            border-top: 3px solid #42a5f5;
+            border-radius: 50%;
+            height: 75px;
+            width: 75px;
+        }
+
+        @-webkit-keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="arjs-loader">
+        <div class="arjs-loader-spinner"></div>
+    </div>
+    <script>
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Init
+        //////////////////////////////////////////////////////////////////////////////////
+
+        var renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true,
+            precision: 'mediump',
+            logarithmicDepthBuffer: true
+        });
+
+        var clock = new THREE.Clock();
+
+        var mixers = [];
+
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.domElement.style.position = 'absolute'
+        renderer.domElement.style.top = '0px'
+        renderer.domElement.style.left = '0px'
+        document.body.appendChild( renderer.domElement );
+
+        // init scene and camera
+        var scene = new THREE.Scene();
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Initialize a basic camera
+        //////////////////////////////////////////////////////////////////////////////////
+
+        // Create a camera
+        var camera = new THREE.Camera();
+        scene.add(camera);
+
+        var light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
+
+        ////////////////////////////////////////////////////////////////////////////////
+        //          handle arToolkitSource
+        ////////////////////////////////////////////////////////////////////////////////
+
+        var arToolkitSource = new THREEx.ArToolkitSource({
+            sourceType : 'webcam',
+        })
+
+        arToolkitSource.init(function onReady(){
+            // use a resize to fullscreen mobile devices
+            setTimeout(function() {
+                onResize()
+            }, 1000);
+        })
+
+        // handle resize
+        window.addEventListener('resize', function(){
+            onResize()
+        })
+
+        // listener for end loading of NFT marker
+        window.addEventListener('arjs-nft-loaded', function(ev){
+          console.log(ev);
+        })
+        
+        
+
+        function onResize(){
+            arToolkitSource.onResizeElement()
+            arToolkitSource.copyElementSizeTo(renderer.domElement)
+            if( arToolkitContext.arController !== null ){
+                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        //          initialize arToolkitContext
+        ////////////////////////////////////////////////////////////////////////////////
+
+        // create atToolkitContext
+        var arToolkitContext = new THREEx.ArToolkitContext({
+            detectionMode: 'mono',
+            maxDetectionRate: 60,
+            canvasWidth: 480,
+            canvasHeight: 640,
+        }, {
+            canvasWidth: 480,
+            canvasHeight: 640,
+        })
+        // initialize it
+        arToolkitContext.init(function onCompleted(){
+            // copy projection matrix to camera
+            camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+        })
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        //          Create a ArMarkerControls
+        ////////////////////////////////////////////////////////////////////////////////
+
+        // init controls for camera
+        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+            type : 'nft',
+            descriptorsUrl : './assets/dataNFT/corona_new',
+            changeMatrixMode: 'cameraTransformMatrix',
+        })
+        markerControls.addEventListener('markerFound', function(ev) {
+				console.log('markerFound',ev );
+                document.location.href = "./escene.html";
+			});
+        scene.visible = false
+
+        
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		add an object in the scene
+        //////////////////////////////////////////////////////////////////////////////////
+
+        
+        
+    </script>
 </body>
-</html>
+
+
