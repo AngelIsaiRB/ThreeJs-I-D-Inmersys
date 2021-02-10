@@ -1,5 +1,5 @@
-# three-template
-A simple template for use modules with three.js (JavaScript template)
+# three-Demo botella
+demo de una botella en threejs
 
 ## how to use?
 - Download this repository
