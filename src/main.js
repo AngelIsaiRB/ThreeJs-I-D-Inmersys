@@ -66,7 +66,7 @@ let markerfound =false
         // create atToolkitContext
         var arToolkitContext = new THREEx.ArToolkitContext({
             detectionMode: 'mono',
-            maxDetectionRate: 60,
+            maxDetectionRate: 30,
             canvasWidth: 480,
             canvasHeight: 640,
         }, {
