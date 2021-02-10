@@ -97,7 +97,7 @@ let markerfound =false
 				markerfound = true;
 				document.body.removeChild(renderer.domElement );
 			splassScreen.style.display = "flex";
-			const app = new App(document.querySelector('#game-container'));
+			 const app = new App(document.querySelector('#game-container'));
 			}
 			});
 
@@ -155,11 +155,6 @@ document.onclick=(e)=>{
 	e.preventDefault();
 	Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
   }
-
-window.addEventListener('resize', () => {
-	app.onResize();
-});
-
 const progrssBar = () =>{
 	 bar = new ProgressBar.Circle(progressBar, {
 		strokeWidth: 6,

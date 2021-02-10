@@ -94,9 +94,12 @@ export class App {
 		this.render();
 		this.events();
 	}
-
+	
 	events(){
 		
+	window.addEventListener('resize', () => {
+		this.onResize();
+	});
 	Observer.on(EVENTS.MOVE_MOUSE, (clientX, clientY)=>{
 	this.scene.onDocumentMouseDown(clientX, clientY, this.renderer, this.camera);
 	});
