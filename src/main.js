@@ -2,7 +2,6 @@
 import { App } from './App';
 import Observer, { EVENTS } from './Observer';
 var ProgressBar = require('progressbar.js');
-import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
 let splassScreen = document.getElementById("splassScreen");
 let markerfound =false
 // /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,8 +21,6 @@ let markerfound =false
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.domElement.style.position = 'absolute'
-        renderer.domElement.style.top = '0px'
-        renderer.domElement.style.left = '0px'
         document.body.appendChild( renderer.domElement );
         // Create a camera
         var camera = new THREE.Camera();
@@ -96,6 +93,7 @@ let markerfound =false
 			if(!markerfound){
 				markerfound = true;
 				document.body.removeChild(renderer.domElement );
+                renderer.dispose();
 			splassScreen.style.display = "flex";
 			 const app = new App(document.querySelector('#game-container'));
 			}
