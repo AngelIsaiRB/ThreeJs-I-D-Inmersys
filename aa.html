@@ -1,14 +1,60 @@
-(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-import { App } from './App';
-import Observer, { EVENTS } from './Observer';
-var ProgressBar = require('progressbar.js');
-import * as TWEEN from "@tweenjs/tween.js/dist/tween.amd";
-let splassScreen = document.getElementById("splassScreen");
-let markerfound =false
-// /////////////////////////////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////////////////////////////
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
- //////////////////////////////////////////////////////////////////////////////////
+<!-- three.js library -->
+<script src='./scripts/vendor/three.js/build/three.min.js'></script>
+	
+	<script src='./scripts/vendor/three.js/GLTFLoader.js'></script>
+	
+	<script src='./scripts/build-ar/ar-nft.js'></script>
+
+<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
+
+<body style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin : 0px; overflow: hidden;'>
+    <style>
+        .arjs-loader {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .arjs-loader-spinner {
+            -webkit-transform: spin 1s linear infinite;
+            z-index: 10;
+            animation: spin 1s linear infinite;
+            border: 3px solid #ddd;
+            border-top: 3px solid #42a5f5;
+            border-radius: 50%;
+            height: 75px;
+            width: 75px;
+        }
+
+        @-webkit-keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                border-top-color: #42a5f5;
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="arjs-loader">
+        <div class="arjs-loader-spinner"></div>
+    </div>
+    <script>
+        //////////////////////////////////////////////////////////////////////////////////
         //		Init
         //////////////////////////////////////////////////////////////////////////////////
 
@@ -18,15 +64,34 @@ let markerfound =false
             precision: 'mediump',
             logarithmicDepthBuffer: true
         });
+
+        var clock = new THREE.Clock();
+
+        var mixers = [];
+
         renderer.setPixelRatio(window.devicePixelRatio);
+
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.domElement.style.position = 'absolute'
         renderer.domElement.style.top = '0px'
         renderer.domElement.style.left = '0px'
         document.body.appendChild( renderer.domElement );
+
+        // init scene and camera
+        var scene = new THREE.Scene();
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Initialize a basic camera
+        //////////////////////////////////////////////////////////////////////////////////
+
         // Create a camera
         var camera = new THREE.Camera();
+        scene.add(camera);
+
+        var light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
+
         ////////////////////////////////////////////////////////////////////////////////
         //          handle arToolkitSource
         ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +104,7 @@ let markerfound =false
             // use a resize to fullscreen mobile devices
             setTimeout(function() {
                 onResize()
-            }, 100);
+            }, 1000);
         })
 
         // handle resize
@@ -93,13 +158,10 @@ let markerfound =false
             changeMatrixMode: 'cameraTransformMatrix',
         })
         markerControls.addEventListener('markerFound', function(ev) {
-			if(!markerfound){
-				markerfound = true;
-				document.body.removeChild(renderer.domElement );
-			splassScreen.style.display = "flex";
-			const app = new App(document.querySelector('#game-container'));
-			}
+				console.log('markerFound',ev );
+                location.href = "escene.html";
 			});
+        scene.visible = false
 
         
 
@@ -108,84 +170,8 @@ let markerfound =false
         //////////////////////////////////////////////////////////////////////////////////
 
         
-     
-
-// /////////////////////////////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////////////////////////////
-// const app = new App(document.querySelector('#game-container'));
-let elemento = document.getElementById("nameArchives");
-let btn1 = document.getElementById("btn1");
-let btn2 = document.getElementById("btn2");
-let btn3 = document.getElementById("btn3");
-let btn4 = document.getElementById("btn4");
-let bar;
-btn1.onclick = () =>{
-	Observer.emit(EVENTS.LIQUID_CHANGE);
-}
-btn2.onclick = () =>{
-	let videoContainer = document.getElementById("video-container-controler");
-	let video = document.getElementById("video");
-	video.play();
-	if(videoContainer.style.display === "flex"){
-		videoContainer.style.display="none"
-		video.pause();
-	}
-	else{
-		videoContainer.style.display="flex";
-	}	
-}
-
-btn3.onclick =()=>{
-	Observer.emit(EVENTS.PLAY_VIDEO2);
-}
-btn4.onclick =()=>{
-	Observer.emit(EVENTS.CHANGE_MATERIAL);
-}
-
-document.addEventListener('touchend', (e) =>{
-	// console.log(e)
-	// Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
-	Observer.emit(EVENTS.RUN_ANIMATION);
-	
-});
-
-document.onclick=(e)=>{
-	// console.log(e)s
-	e.preventDefault();
-	Observer.emit(EVENTS.MOVE_MOUSE,e.clientX, e.clientY);
-  }
-
-window.addEventListener('resize', () => {
-	app.onResize();
-});
-
-const progrssBar = () =>{
-	 bar = new ProgressBar.Circle(progressBar, {
-		strokeWidth: 6,
-		easing: 'easeInOut',
-		duration: 200,
-		color: '#2E86C1',
-		trailColor: '#eee',
-		trailWidth: 5,
-		svgStyle: null
-	  });
-
-}
-	Observer.on(EVENTS.LOADING, (progress, url)=>{
-	//   console.log(percent)
-	  elemento.textContent = url
-	  bar.animate(progress);
-  });
-
-  Observer.on(EVENTS.LODING_OK, ()=>{
-	elemento.textContent="";
-	splassScreen.style.display = "none";
-	btn1.style.display = "block"
-	btn2.style.display = "block"
-	btn3.style.display = "block"
-	btn4.style.display = "block"
-  })
+        
+    </script>
+</body>
 
 
-progrssBar()

@@ -25,7 +25,9 @@
 body {
 	background-color: rgb(55, 56, 134);
 }
-
+#splassScreen{
+	display: none;
+}
 .splass {
 	position: fixed; 
 	top: -50%; 
