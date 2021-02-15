@@ -4,106 +4,106 @@ import Observer, { EVENTS } from './Observer';
 var ProgressBar = require('progressbar.js');
 let splassScreen = document.getElementById("splassScreen");
 let markerfound =false
-// /////////////////////////////////////////////////////////////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////////////////////////////
+// // /////////////////////////////////////////////////////////////////////////////////////////////////
+// // /////////////////////////////////////////////////////////////////////////////////////////////////
 
- //////////////////////////////////////////////////////////////////////////////////
-        //		Init
-        //////////////////////////////////////////////////////////////////////////////////
+//  //////////////////////////////////////////////////////////////////////////////////
+//         //		Init
+//         //////////////////////////////////////////////////////////////////////////////////
 
-        var renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true,
-            precision: 'mediump',
-            logarithmicDepthBuffer: true
-        });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.domElement.style.position = 'absolute'
-        document.body.appendChild( renderer.domElement );
-        // Create a camera
-        var camera = new THREE.Camera();
-        ////////////////////////////////////////////////////////////////////////////////
-        //          handle arToolkitSource
-        ////////////////////////////////////////////////////////////////////////////////
+//         var renderer = new THREE.WebGLRenderer({
+//             antialias: true,
+//             alpha: true,
+//             precision: 'mediump',
+//             logarithmicDepthBuffer: true
+//         });
+//         renderer.setPixelRatio(window.devicePixelRatio);
+//         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+//         renderer.setSize( window.innerWidth, window.innerHeight );
+//         renderer.domElement.style.position = 'absolute'
+//         document.body.appendChild( renderer.domElement );
+//         // Create a camera
+//         var camera = new THREE.Camera();
+//         ////////////////////////////////////////////////////////////////////////////////
+//         //          handle arToolkitSource
+//         ////////////////////////////////////////////////////////////////////////////////
 
-        var arToolkitSource = new THREEx.ArToolkitSource({
-            sourceType : 'webcam',
-        })
+//         var arToolkitSource = new THREEx.ArToolkitSource({
+//             sourceType : 'webcam',
+//         })
 
-        arToolkitSource.init(function onReady(){
-            // use a resize to fullscreen mobile devices
-            setTimeout(function() {
-                onResize()
-            }, 100);
-        })
+//         arToolkitSource.init(function onReady(){
+//             // use a resize to fullscreen mobile devices
+//             setTimeout(function() {
+//                 onResize()
+//             }, 100);
+//         })
 
-        // handle resize
-        window.addEventListener('resize', function(){
-            onResize()
-        })
+//         // handle resize
+//         window.addEventListener('resize', function(){
+//             onResize()
+//         })
 
-        // listener for end loading of NFT marker
-        window.addEventListener('arjs-nft-loaded', function(ev){
-          console.log(ev);
-        })
+//         // listener for end loading of NFT marker
+//         window.addEventListener('arjs-nft-loaded', function(ev){
+//           console.log(ev);
+//         })
         
         
 
-        function onResize(){
-            arToolkitSource.onResizeElement()
-            arToolkitSource.copyElementSizeTo(renderer.domElement)
-            if( arToolkitContext.arController !== null ){
-                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
-            }
-        }
+//         function onResize(){
+//             arToolkitSource.onResizeElement()
+//             arToolkitSource.copyElementSizeTo(renderer.domElement)
+//             if( arToolkitContext.arController !== null ){
+//                 arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
+//             }
+//         }
 
-        ////////////////////////////////////////////////////////////////////////////////
-        //          initialize arToolkitContext
-        ////////////////////////////////////////////////////////////////////////////////
+//         ////////////////////////////////////////////////////////////////////////////////
+//         //          initialize arToolkitContext
+//         ////////////////////////////////////////////////////////////////////////////////
 
-        // create atToolkitContext
-        var arToolkitContext = new THREEx.ArToolkitContext({
-            detectionMode: 'mono',
-            maxDetectionRate: 30,
-            canvasWidth: 480,
-            canvasHeight: 640,
-        }, {
-            canvasWidth: 480,
-            canvasHeight: 640,
-        })
-        // initialize it
-        arToolkitContext.init(function onCompleted(){
-            // copy projection matrix to camera
-            camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
-        })
+//         // create atToolkitContext
+//         var arToolkitContext = new THREEx.ArToolkitContext({
+//             detectionMode: 'mono',
+//             maxDetectionRate: 30,
+//             canvasWidth: 480,
+//             canvasHeight: 640,
+//         }, {
+//             canvasWidth: 480,
+//             canvasHeight: 640,
+//         })
+//         // initialize it
+//         arToolkitContext.init(function onCompleted(){
+//             // copy projection matrix to camera
+//             camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+//         })
         
-        ////////////////////////////////////////////////////////////////////////////////
-        //          Create a ArMarkerControls
-        ////////////////////////////////////////////////////////////////////////////////
+//         ////////////////////////////////////////////////////////////////////////////////
+//         //          Create a ArMarkerControls
+//         ////////////////////////////////////////////////////////////////////////////////
 
-        // init controls for camera
-        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
-            type : 'nft',
-            descriptorsUrl : './assets/dataNFT/corona_new',
-            changeMatrixMode: 'cameraTransformMatrix',
-        })
-        markerControls.addEventListener('markerFound', function(ev) {
-			if(!markerfound){
-				markerfound = true;
-				document.body.removeChild(renderer.domElement );
-                renderer.dispose();
-			splassScreen.style.display = "flex";
-			 const app = new App(document.querySelector('#game-container'));
-			}
-			});
+//         // init controls for camera
+//         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+//             type : 'nft',
+//             descriptorsUrl : './assets/dataNFT/corona_new',
+//             changeMatrixMode: 'cameraTransformMatrix',
+//         })
+//         markerControls.addEventListener('markerFound', function(ev) {
+// 			if(!markerfound){
+// 				markerfound = true;
+// 				document.body.removeChild(renderer.domElement );
+//                 renderer.dispose();
+// 			splassScreen.style.display = "flex";
+// 			 const app = new App(document.querySelector('#game-container'));
+// 			}
+// 			});
 
         
 
-        //////////////////////////////////////////////////////////////////////////////////
-        //		add an object in the scene
-        //////////////////////////////////////////////////////////////////////////////////
+//         //////////////////////////////////////////////////////////////////////////////////
+//         //		add an object in the scene
+//         //////////////////////////////////////////////////////////////////////////////////
 
         
      
@@ -111,7 +111,8 @@ let markerfound =false
 // /////////////////////////////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////////////////////////
-// const app = new App(document.querySelector('#game-container'));
+
+const app = new App(document.querySelector('#game-container'));
 let elemento = document.getElementById("nameArchives");
 let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
